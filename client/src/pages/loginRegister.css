@@ -1,0 +1,80 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+}
+
+.login__box {
+  position: absolute;
+  left: 50%;
+  padding: 50px;
+  width: 40%;
+  background: transparent;
+  z-index: 2;
+}
+
+.login__button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.button {
+  min-width: 200px;
+  min-height: 30px;
+  padding: 10px 20px;
+}
+
+.login-input label {
+  margin: 0 auto;
+  min-width: 430px;
+}
+
+.login-input input {
+  margin: 0 auto;
+  min-width: 400px;
+}
+
+.login__background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.cat__logo {
+  position: absolute;
+  top: 60%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  max-width: 700px;
+  max-height: 700px;
+}
+
+.title__login {
+  font-family: 'Abril Fatface', serif;
+  text-align: center;
+  font-size: 60px;
+  margin-bottom: 0;
+  color: #884a39;
+  z-index: 4;
+}
+
+.title__description {
+  font-family: 'Biryani', sans-serif;
+  text-align: center;
+  color: black;
+  margin-top: 5px;
+  font-size: 30px;
+}

@@ -1,0 +1,17 @@
+.input-group select {
+  border: 2px solid #884a39;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: white;
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  outline: none;
+  margin: 0 auto;
+  min-width: 430px;
+}
+
+.input-group label {
+  margin: 0 auto;
+  min-width: 430px;
+}
