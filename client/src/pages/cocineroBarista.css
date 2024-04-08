@@ -1,0 +1,116 @@
+.cocinero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background: white;
+  z-index: 0;
+}
+
+.header {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  padding: 0px 80px;
+  background-color: transparent;
+  padding-bottom: 0;
+  border-bottom: 2px solid black;
+}
+
+.header-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin-top: 40px;
+}
+
+.main__title,
+.current-time {
+  font-family: 'Biryani', sans-serif;
+  margin: 0; /* Elimina cualquier margen */
+}
+
+.main__title {
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.current-time {
+  color: black;
+  font-size: 20px;
+}
+
+.main__logo {
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.employee-info {
+  display: flex;
+  gap: 70px;
+  text-align: right;
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  margin-top: 30px;
+}
+
+.name__empleado,
+.rol__empleado {
+  margin: 0;
+  font-size: 1rem;
+  padding: 0;
+  margin-top: -10%;
+}
+.name__empleado span,
+.rol__empleado span {
+  font-weight: bold;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 200px;
+  background-color: #c38154;
+  width: 80%;
+}
+
+.page__message {
+  font-family: 'Biryani', sans-serif;
+  color: white;
+  font-weight: bold;
+}
+
+.cocinero-layout {
+  padding: 10px;
+  margin-top: 2%;
+  gap: 10px;
+  display: flex;
+  margin-right: 2%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-width: 80%;
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 10px;
+}
+
+.card {
+  flex: 0 0 auto;
+  width: 190px;
+}
