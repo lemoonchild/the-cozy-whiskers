@@ -1,0 +1,49 @@
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 190px; /* Ajusta el ancho según tus necesidades */
+  margin: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  display: block;
+}
+
+.card-info {
+  padding: 8px;
+  text-align: center;
+}
+
+.card-time {
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  font-size: 0.85rem;
+}
+
+.card-title {
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  margin: 8px 0;
+}
+
+.card-button {
+  background-color: #f9e0bb;
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.card-button:hover {
+  background-color: #c38154;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
