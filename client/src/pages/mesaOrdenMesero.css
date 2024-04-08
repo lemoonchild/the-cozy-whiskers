@@ -90,27 +90,3 @@
   color: white;
   font-weight: bold;
 }
-
-.cocinero-layout {
-  padding: 10px;
-  margin-top: 2%;
-  gap: 10px;
-  display: flex;
-  margin-right: 2%;
-  justify-content: flex-start;
-  align-items: flex-start;
-  max-width: 80%;
-}
-
-.cards-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  gap: 10px;
-}
-
-.card {
-  flex: 0 0 auto;
-  width: 190px;
-}

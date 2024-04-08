@@ -1,0 +1,77 @@
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+  z-index: 1001;
+  display: flex;
+  flex-direction: row;
+  border: 3px solid #884a39;
+}
+
+.popup-image-container {
+  flex: 1;
+}
+
+.popup-image {
+  width: 100%;
+  border-radius: 5px;
+  object-fit: cover;
+  height: 300px;
+  width: 200px;
+}
+
+.popup-text-container {
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  flex: 2;
+  padding-left: 20px;
+}
+
+.realizado-button {
+  background-color: #c59d5f;
+  font-family: 'Biryani', sans-serif;
+  font-weight: bold;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 290px;
+  width: 140px;
+  height: 40px;
+}
+
+.realizado-button:hover {
+  background-color: #884a39;
+  transition: 0.3ms ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  color: #884a39;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #c59d5f;
+}

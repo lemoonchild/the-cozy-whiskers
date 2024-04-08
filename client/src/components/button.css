@@ -8,6 +8,7 @@
   background-color: #c38154;
   transition: transform 0.1s ease, background-color 0.1s ease;
   outline: none;
+  color: white;
 }
 
 .button:hover {

@@ -31,8 +31,8 @@ const Login = () => {
             placeholder="Introduce tu contraseña"
           />
           <div className="login__button-container">
-            <Link>
-              <Button text="¡Entrar!" onClick={() => console.log('Ingresar')} />
+            <Link to={'/cocinero'}>
+              <Button text="¡Entrar!" onClick={() => console.log('Inicio de sesión exitoso')} />
             </Link>
           </div>
         </form>
@@ -80,8 +80,8 @@ const Register = () => {
             options={roles}
           />
           <div className="login__button-container">
-            <Link>
-              <Button text="¡Bienvenid@!" onClick={() => console.log('Ingresar')} />
+            <Link to={'/cocinero'}>
+              <Button text="¡Bienvenid@!" onClick={() => console.log('Registro exitoso')} />
             </Link>
           </div>
         </form>
