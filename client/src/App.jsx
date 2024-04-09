@@ -7,6 +7,7 @@ import MesaMesero from './pages/mesaMesero'
 import OrdenMesero from './pages/ordenMesero'
 import VerPedidosMesero from './pages/verPedidoMesero'
 import InformaciondeFactura from './pages/infoFactura'
+import EncuestaSatisfaccion from './pages/encuestaSatisfaccion'
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
         <Route path="/mesaMesero" element={<MesaMesero action="mesaMesero" />} />
         <Route path="/ordenMesero" element={<OrdenMesero action="ordenMesero" />} />
         <Route path="/verPedidoMesero" element={<VerPedidosMesero action="verPedidoMesero" />} />
+        <Route
+          path="/encuestaSatisfaccion"
+          element={<EncuestaSatisfaccion action="encuestaSatisfaccion" />}
+        />
         <Route
           path="/informacionFactura"
           element={<InformaciondeFactura action="informacionFactura" />}

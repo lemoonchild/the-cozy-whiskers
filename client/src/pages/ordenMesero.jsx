@@ -105,7 +105,9 @@ const OrdenMesero = () => {
         />
       </div>
       <div className="button__orden">
-        <Link to={'/verPedidoMesero'}>
+        <Link
+          to={'/verPedidoMesero'} //Envía a página para ver pedidos del mesero
+        >
           <Button text="Ver pedido" onClick={() => console.log('Ver pedido')} />
         </Link>
       </div>

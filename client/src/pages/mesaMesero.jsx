@@ -40,7 +40,7 @@ const MeseroMesa = () => {
       </div>
 
       <form className="table__form">
-        <Input //INFORMACIÓN DE USUARIO
+        <Input //INFORMACIÓN DE MESA
           className="table__input"
           label="Ingresar Mesa"
           type="text"
@@ -49,7 +49,7 @@ const MeseroMesa = () => {
           placeholder="Introduce el número de mesa"
           isNumeric={true}
         />
-        <Input //INFORMACIÓN DE CONTRASEÑA
+        <Input //INFORMACIÓN DE PERSONAS EN MESA
           className="table__input"
           label="Personas en la mesa"
           type="people-amount"
