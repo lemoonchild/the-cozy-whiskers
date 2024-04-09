@@ -152,7 +152,7 @@ const VerPedidoMesero = () => {
         </p>
         <p className="current-time">{currentTime.toLocaleTimeString()}</p>
       </div>
-      <div className="cocinero-layout" ref={layoutRef}>
+      <div className="pedido-layout" ref={layoutRef}>
         <div className="cards-container">
           {dishes.map((dish) => (
             <Card

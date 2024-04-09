@@ -1,7 +1,7 @@
 .card {
   border: 1px solid #ccc;
   border-radius: 8px;
-  width: 190px; /* Ajusta el ancho según tus necesidades */
+  width: 190px;
   margin: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -11,7 +11,7 @@
   width: 100%;
   display: block;
   object-fit: cover;
-  height: 180px;
+  height: 150px;
   width: 200px;
 }
 

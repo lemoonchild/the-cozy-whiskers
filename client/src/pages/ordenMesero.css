@@ -76,15 +76,12 @@
   font-weight: bold;
 }
 
-.search__food {
-  margin-top: 80px;
-}
-
-.button {
+.button__orden {
   min-width: 200px;
   min-height: 30px;
   padding: 10px 20px;
   margin-bottom: 20px;
+  margin-top: 95px;
 }
 
 .footer {
@@ -115,9 +112,9 @@
 .search__food {
   /* Ajustes al contenedor de búsqueda */
   position: relative;
-  margin-top: 100px;
+  margin-top: 60px;
   width: 300px; /* Ajusta el ancho según necesites */
-  margin-bottom: 5%;
+  margin-bottom: 1%;
 }
 
 .search-input {

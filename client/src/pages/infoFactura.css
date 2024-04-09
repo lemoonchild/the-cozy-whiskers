@@ -1,4 +1,4 @@
-.pedido {
+.infoFactura {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,7 +18,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 40px;
   padding: 0px 80px;
   background-color: transparent;
   padding-bottom: 0;
@@ -76,6 +76,27 @@
   font-weight: bold;
 }
 
+.table__form {
+  margin-top: 108px;
+}
+
+.button {
+  min-width: 200px;
+  min-height: 30px;
+  padding: 10px 20px;
+  margin-bottom: 10%;
+}
+
+.table__input label {
+  margin: 0 auto;
+  min-width: 430px;
+}
+
+.table__input input {
+  margin: 0 auto;
+  min-width: 400px;
+}
+
 .footer {
   display: flex;
   align-items: center;
@@ -83,35 +104,11 @@
   padding-right: 200px;
   background-color: #c38154;
   width: 80%;
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .page__message {
   font-family: 'Biryani', sans-serif;
   color: white;
   font-weight: bold;
-}
-
-.pedido-layout {
-  padding: 10px;
-  margin-top: 2%;
-  gap: 10px;
-  display: flex;
-  margin-right: 2%;
-  justify-content: flex-start;
-  align-items: flex-start;
-  max-width: 80%;
-}
-
-.cards-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  gap: 10px;
-}
-
-.card {
-  flex: 0 0 auto;
-  width: 190px;
 }

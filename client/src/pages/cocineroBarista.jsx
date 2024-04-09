@@ -6,9 +6,9 @@ import Popup from '../components/popUp'
 const Cocinero = () => {
   //Colocar el nombre de empleado y rol según el usuario
   const empleadoNombre = 'Juan Perez'
-  const rolEmpleado = 'Cocinero'
+  const rolEmpleado = 'Barista'
 
-  //Platos utilizados para las cartas
+  //Bebidas utilizados para las cartas
   const [dishes, setDishes] = useState([
     {
       id: 1,
@@ -163,6 +163,7 @@ const Cocinero = () => {
               time={dish.time}
               title={dish.title}
               onPrepareClick={() => handlePrepareClick(dish)}
+              buttonText="Preparar"
             />
           ))}
         </div>

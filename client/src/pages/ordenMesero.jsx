@@ -65,7 +65,7 @@ const OrdenMesero = () => {
       <div className="header">
         <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
-          <Link to={'/mesaMesero'}>
+          <Link to={'/infoFactura'}>
             <Button
               text="Cerrar cuenta"
               onClick={() => console.log('Cuenta cerrada exitosamente')}
@@ -104,7 +104,7 @@ const OrdenMesero = () => {
           dishName={currentDishName}
         />
       </div>
-      <div className="login__button-container">
+      <div className="button__orden">
         <Link to={'/verPedidoMesero'}>
           <Button text="Ver pedido" onClick={() => console.log('Ver pedido')} />
         </Link>
