@@ -1,4 +1,4 @@
-.infoFactura {
+.informacionFactura {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -76,15 +76,36 @@
   font-weight: bold;
 }
 
-.table__form {
+.factura__form {
   margin-top: 108px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
-.button {
-  min-width: 200px;
-  min-height: 30px;
-  padding: 10px 20px;
-  margin-bottom: 10%;
+.factura__column1 {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-bottom: 20px;
+  margin-left: -160%;
+  margin-top: 0%;
+}
+.factura__column2 {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-bottom: 20px;
+  margin-left: 90%;
+  margin-top: -54%;
+}
+
+.factura__button-container {
+  width: 100%; /* Asegura que el botón se centre correctamente */
+  display: flex;
+  justify-content: center; /* Centra el botón horizontalmente */
+  margin-top: 20px; /* Aumenta para más espacio sobre el botón */
 }
 
 .table__input label {
@@ -97,14 +118,14 @@
   min-width: 400px;
 }
 
-.footer {
+.footer_factura {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding-right: 200px;
   background-color: #c38154;
   width: 80%;
-  margin-top: 10px;
+  margin-top: 60px;
 }
 
 .page__message {
