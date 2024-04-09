@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import HomePage from '../src/pages/homePage'
 import LoginRegistro from '../src/pages/loginRegister'
 import CocineroBarista from '../src/pages/cocineroBarista'
-import MesaOrdenMesero from '../src/pages/mesaOrdenMesero'
+import MesaMesero from './pages/mesaMesero'
+import OrdenMesero from './pages/ordenMesero'
+import VerPedidosMesero from './pages/verPedidoMesero'
 
 function App() {
   return (
@@ -14,8 +16,9 @@ function App() {
         <Route path="/register" element={<LoginRegistro action="register" />} />
         <Route path="/cocinero" element={<CocineroBarista action="cocinero" />} />
         <Route path="/barista" element={<CocineroBarista action="barista" />} />
-        <Route path="/mesaMesero" element={<MesaOrdenMesero action="mesaMesero" />} />
-        <Route path="/ordenMesero" element={<MesaOrdenMesero action="ordenMesero" />} />
+        <Route path="/mesaMesero" element={<MesaMesero action="mesaMesero" />} />
+        <Route path="/ordenMesero" element={<OrdenMesero action="ordenMesero" />} />
+        <Route path="/verPedidoMesero" element={<VerPedidosMesero action="verPedidoMesero" />} />
       </Routes>
     </Router>
   )

@@ -346,6 +346,7 @@ const Barista = () => {
               time={dish.time}
               title={dish.title}
               onPrepareClick={() => handlePrepareClick(dish)}
+              buttonText="Preparar"
             />
           ))}
         </div>

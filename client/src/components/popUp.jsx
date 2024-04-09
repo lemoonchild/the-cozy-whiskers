@@ -17,7 +17,7 @@ const Popup = ({ isOpen, closePopup, imageSrc, title, size, quantity, note, onRe
           <p>Nota: {note}</p>
         </div>
         <button className="realizado-button" onClick={onRealizado}>
-          REALIZADO
+          Realizado
         </button>
         <button className="close-button" onClick={closePopup}>
           X

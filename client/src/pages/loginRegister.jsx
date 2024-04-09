@@ -21,6 +21,7 @@ const Login = () => {
             name="username"
             id="username"
             placeholder="Introduce tu usuario"
+            isNumeric={false}
           />
           <Input //INFORMACIÓN DE CONTRASEÑA
             className="login-input"
@@ -29,9 +30,10 @@ const Login = () => {
             name="password"
             id="password"
             placeholder="Introduce tu contraseña"
+            isNumeric={false}
           />
           <div className="login__button-container">
-            <Link to={'/cocinero'}>
+            <Link to={'/mesaMesero'}>
               <Button text="¡Entrar!" onClick={() => console.log('Inicio de sesión exitoso')} />
             </Link>
           </div>
@@ -80,7 +82,7 @@ const Register = () => {
             options={roles}
           />
           <div className="login__button-container">
-            <Link to={'/cocinero'}>
+            <Link to={'/barista'}>
               <Button text="¡Bienvenid@!" onClick={() => console.log('Registro exitoso')} />
             </Link>
           </div>

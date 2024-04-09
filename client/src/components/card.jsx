@@ -1,7 +1,7 @@
 import React from 'react'
 import './card.css'
 
-const Card = ({ image, time, title, onPrepareClick }) => {
+const Card = ({ image, time, title, onPrepareClick, buttonText }) => {
   return (
     <div className="card">
       <img src={image} alt={title} className="card-image" />
@@ -10,7 +10,7 @@ const Card = ({ image, time, title, onPrepareClick }) => {
         <h3 className="card-title">{title}</h3>
       </div>
       <button className="card-button" onClick={onPrepareClick}>
-        PREPARAR
+        {buttonText}
       </button>
     </div>
   )
