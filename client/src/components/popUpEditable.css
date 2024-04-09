@@ -1,0 +1,104 @@
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.popup-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  padding: 40px;
+  position: relative;
+}
+
+.popup-header h3 {
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  font-size: 20px;
+  margin-left: 40px;
+}
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.close-button {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  color: #884a39;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #c59d5f;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.input-group textarea {
+  width: 100%;
+  height: 100px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow-y: auto;
+  resize: none;
+}
+
+.submit-button {
+  background-color: #c38154;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 80%;
+  font-size: 1rem;
+  margin-top: 20px;
+  margin-left: 60px;
+}
+
+.submit-button:hover {
+  background-color: #884a39;
+  transition: 0.3ms ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.input-group label {
+  margin-left: 1px;
+}
