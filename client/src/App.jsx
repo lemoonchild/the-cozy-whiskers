@@ -6,7 +6,7 @@ import CocineroBarista from '../src/pages/cocineroBarista'
 import MesaMesero from './pages/mesaMesero'
 import OrdenMesero from './pages/ordenMesero'
 import VerPedidosMesero from './pages/verPedidoMesero'
-import InfoFacturas from './pages/infoFactura'
+import InformaciondeFactura from './pages/infoFactura'
 
 function App() {
   return (
@@ -20,7 +20,10 @@ function App() {
         <Route path="/mesaMesero" element={<MesaMesero action="mesaMesero" />} />
         <Route path="/ordenMesero" element={<OrdenMesero action="ordenMesero" />} />
         <Route path="/verPedidoMesero" element={<VerPedidosMesero action="verPedidoMesero" />} />
-        <Route path="/infoFactura" element={<InfoFacturas action="infoFacturas" />} />
+        <Route
+          path="/informacionFactura"
+          element={<InformaciondeFactura action="informacionFactura" />}
+        />
       </Routes>
     </Router>
   )

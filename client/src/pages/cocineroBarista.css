@@ -76,13 +76,14 @@
   font-weight: bold;
 }
 
-.footer {
+.footer_cb {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding-right: 200px;
   background-color: #c38154;
   width: 80%;
+  margin-top: 50px;
 }
 
 .page__message {

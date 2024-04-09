@@ -167,7 +167,7 @@ const VerPedidoMesero = () => {
         </div>
       </div>
 
-      <div className="footer">
+      <div className="footer_mesero">
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
 

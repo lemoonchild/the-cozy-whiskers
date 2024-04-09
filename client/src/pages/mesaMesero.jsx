@@ -68,7 +68,7 @@ const MeseroMesa = () => {
         </div>
       </form>
 
-      <div className="footer">
+      <div className="footer_mesa">
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
     </div>

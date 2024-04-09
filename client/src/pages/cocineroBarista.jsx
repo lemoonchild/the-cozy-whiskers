@@ -169,7 +169,7 @@ const Cocinero = () => {
         </div>
       </div>
 
-      <div className="footer">
+      <div className="footer_cb">
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
 
@@ -353,7 +353,7 @@ const Barista = () => {
         </div>
       </div>
 
-      <div className="footer">
+      <div className="footer_cb">
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
 

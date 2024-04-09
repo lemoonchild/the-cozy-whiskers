@@ -65,7 +65,7 @@ const OrdenMesero = () => {
       <div className="header">
         <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
-          <Link to={'/infoFactura'}>
+          <Link to={'/informacionFactura'}>
             <Button
               text="Cerrar cuenta"
               onClick={() => console.log('Cuenta cerrada exitosamente')}
@@ -110,7 +110,7 @@ const OrdenMesero = () => {
         </Link>
       </div>
 
-      <div className="footer">
+      <div className="footer_orden">
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
     </div>
