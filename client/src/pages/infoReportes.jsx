@@ -8,11 +8,46 @@ const VerReportes = () => {
   const fechaInicio = '11/03/2024'
   const fechaFin = '18/03/2024'
 
+  // Datos de ejemplo directamente dentro de VerReportes
+  const sampleData = [
+    { id: 1, fecha: '12/03/2024', cliente: 'Empresa A', cantidad: 5, total: '$500.00' },
+    { id: 2, fecha: '13/03/2024', cliente: 'Empresa B', cantidad: 3, total: '$300.00' },
+    { id: 3, fecha: '14/03/2024', cliente: 'Empresa C', cantidad: 4, total: '$400.00' },
+    { id: 4, fecha: '15/03/2024', cliente: 'Empresa D', cantidad: 2, total: '$200.00' },
+    { id: 5, fecha: '16/03/2024', cliente: 'Empresa E', cantidad: 6, total: '$600.00' },
+  ]
+
+  // DynamicTable definido dentro de VerReportes
+  const DynamicTable = ({ data }) => {
+    const headers = data.length > 0 ? Object.keys(data[0]) : []
+
+    return (
+      <table>
+        <thead>
+          <tr>
+            {headers.map((header, index) => (
+              <th key={index}>{header}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {headers.map((header, index) => (
+                <td key={index}>{row[header]}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )
+  }
+
   return (
     <div className="ver__reporte">
       <div className="header__reporte">
         <p className="titulo__reporte__main">
-          <h3>FACTURA</h3>
+          <h3>Reporte de: {}</h3>
         </p>
 
         <Link to={'/reportes'}>
@@ -32,6 +67,8 @@ const VerReportes = () => {
           {fechaInicio} - {fechaFin}
         </p>
       </div>
+
+      <DynamicTable data={sampleData} />
 
       <div className="footer_queja">
         <p className="page__message">Your Second Home, with a Feline Twist</p>

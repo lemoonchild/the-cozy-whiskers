@@ -8,6 +8,7 @@
   width: 100vw;
   background: white;
   z-index: 0;
+  font-family: 'Biryani', sans-serif;
 }
 
 .header__reporte {
@@ -57,4 +58,26 @@
 
 .fecha__emision span {
   font-weight: bold;
+}
+
+table {
+  width: 80%;
+  border-collapse: separate; /* Esto asegura que el espaciado entre celdas funcione */
+  border-spacing: 0 1em; /* Espaciado vertical entre filas */
+}
+
+th,
+td {
+  padding: 0.5em 8em; /* Espaciado interno en las celdas para separar el texto de los bordes */
+  text-align: center; /* Alinea el texto a la izquierda */
+}
+
+th {
+  background-color: #f9e0bb; /* Color de fondo para los encabezados de tabla */
+  font-weight: 600; /* Hace que la fuente de los encabezados sea más gruesa */
+  opacity: 0.9;
+}
+
+tbody tr {
+  background-color: #ffffff; /* Color de fondo para las filas del cuerpo de la tabla */
 }
