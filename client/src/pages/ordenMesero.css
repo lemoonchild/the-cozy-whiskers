@@ -109,25 +109,27 @@
   margin-top: 30px;
 }
 
-.search__food {
-  /* Ajustes al contenedor de búsqueda */
+.search__food__orden {
   position: relative;
   margin-top: 60px;
-  width: 300px; /* Ajusta el ancho según necesites */
+  width: 300px;
   margin-bottom: 1%;
 }
 
-.search-input {
-  /* Estiliza la barra de búsqueda */
+.search-input-orden {
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #c38154;
+  border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.search-results {
-  /* Estiliza la caja de resultados */
+.search-input-orden:focus {
+  border-color: #c38154;
+  outline: none;
+}
+
+.search-results-orden {
   font-family: 'Biryani', sans-serif;
   color: black;
   position: absolute;
@@ -135,7 +137,7 @@
   left: 0;
   right: 0;
   border: 1px solid #c38154;
-  border-top: none; /* Elimina el borde superior */
+  border-top: none;
   max-height: 150px;
   overflow-y: auto;
   background: #fff;
@@ -143,16 +145,16 @@
   z-index: 10;
 }
 
-.search-item {
+.search-item-orden {
   padding: 10px;
   border-bottom: 1px solid #eee;
   cursor: pointer;
 }
 
-.search-item:last-child {
+.search-item-orden:last-child {
   border-bottom: none;
 }
 
-.search-item:hover {
+.search-item-orden:hover {
   background-color: #f0f0f0;
 }

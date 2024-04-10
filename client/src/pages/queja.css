@@ -1,0 +1,182 @@
+.quejaProducto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background: white;
+  z-index: 0;
+}
+
+.header {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  padding: 0px 80px;
+  background-color: transparent;
+  padding-bottom: 0;
+  border-bottom: 2px solid black;
+}
+
+.header-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin-top: 40px;
+}
+
+.main__title,
+.current-time {
+  font-family: 'Biryani', sans-serif;
+  margin: 0; /* Elimina cualquier margen */
+}
+
+.main__title {
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.current-time {
+  color: black;
+  font-size: 20px;
+}
+
+.main__logo {
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.employee-info {
+  display: flex;
+  gap: 70px;
+  text-align: right;
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  margin-top: 30px;
+}
+
+.name__empleado,
+.rol__empleado {
+  margin: 0;
+  font-size: 1rem;
+  padding: 0;
+  margin-top: -10%;
+}
+.name__empleado span,
+.rol__empleado span {
+  font-weight: bold;
+}
+
+.button__queja {
+  min-width: 200px;
+  min-height: 30px;
+  padding: 10px 110px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.footer_queja {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 200px;
+  background-color: #c38154;
+  width: 80%;
+  margin-top: 0px;
+}
+
+.queja__form {
+  margin-top: 50px;
+}
+
+.page__message {
+  font-family: 'Biryani', sans-serif;
+  color: white;
+  font-weight: bold;
+}
+
+.radio-buttons-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 0;
+}
+
+.radio-button-container {
+  margin-right: 10px;
+}
+
+.search__element {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+}
+
+.search-label-queja {
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  margin-bottom: 10px;
+  font-size: 20px;
+  margin-right: 250px;
+}
+
+.search-input-queja {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 0;
+  font-family: 'Biryani', sans-serif;
+  margin-right: -20px;
+  color: black;
+  font-size: 15px;
+}
+
+.search-input-queja:focus {
+  border-color: #c38154;
+  outline: none;
+}
+
+.search-results-queja {
+  width: 100%;
+  max-height: 200px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  border: 1px solid #c38154;
+  border-top: none;
+  overflow-y: auto;
+}
+
+.search-item-queja {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.search-item-queja:last-child {
+  border-bottom: none;
+}
+
+.search-item-queja:hover {
+  background-color: #f0f0f0;
+}

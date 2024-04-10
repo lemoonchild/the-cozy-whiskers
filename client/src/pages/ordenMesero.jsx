@@ -33,8 +33,7 @@ const OrdenMesero = () => {
     'Bagel con huevo y tocino',
     'Bagel con huevo y frijol',
     'Bagel con huevo y aguacate',
-    'NATANAEL',
-    // ... más platos o bebidas
+    'Huevos con tocino',
   ]
 
   //Busqueda
@@ -44,7 +43,7 @@ const OrdenMesero = () => {
     setSearchTerm(value)
     if (value) {
       const filtered = dishes.filter((dish) => dish.toLowerCase().includes(value.toLowerCase()))
-      console.log('Platos filtrados:', filtered) // Debería mostrar los platos filtrados
+      console.log('Platos filtrados:', filtered) // Debería mostrar los platos o bebidas filtrados
       setFilteredDishes(filtered)
     } else {
       setFilteredDishes([])
@@ -79,19 +78,23 @@ const OrdenMesero = () => {
         </p>
         <p className="current-time">{currentTime.toLocaleTimeString()}</p>
       </div>
-      <div className="search__food">
+      <div className="search__food__orden">
         <label className="search-label">Buscar plato o bebida:</label>
         <input
           type="text"
           placeholder="Buscar plato o bebida"
           value={searchTerm}
           onChange={handleSearch}
-          className="search-input"
+          className="search-input-orden"
         />
         {searchTerm && (
-          <div className="search-results">
+          <div className="search-results-orden">
             {filteredDishes.map((dish, index) => (
-              <div key={index} className="search-item" onClick={() => openPopupEditable(dish)}>
+              <div
+                key={index}
+                className="search-item-orden"
+                onClick={() => openPopupEditable(dish)}
+              >
                 {dish}
               </div>
             ))}
