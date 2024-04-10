@@ -1,4 +1,4 @@
-.mesaMesero {
+.mesaMesero__abierta {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -76,8 +76,8 @@
   font-weight: bold;
 }
 
-.table__form {
-  margin-top: 108px;
+.table__form__abierto {
+  margin-top: 150px;
 }
 
 .mesa__button__container {
@@ -104,14 +104,14 @@
   min-width: 400px;
 }
 
-.footer_mesa {
+.footer_mesa__abierto {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding-right: 200px;
   background-color: #c38154;
   width: 80%;
-  margin-top: 100px;
+  margin-top: 150px;
 }
 
 .page__message {

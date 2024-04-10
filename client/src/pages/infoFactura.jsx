@@ -81,11 +81,11 @@ const InformacionFactura = () => {
           <div className="facturainput">
             <Input //INFORMACIÓN NIT
               className="table__input"
-              label="Ingrese la ciudad:"
+              label="Ingrese la direccion:"
               type="text"
               name="table"
               id="table"
-              placeholder="Introduce la ciudad"
+              placeholder="Introduce la direccion"
               isNumeric={false}
             />
           </div>
@@ -100,7 +100,7 @@ const InformacionFactura = () => {
           </div>
         </div>
         <div className="factura__button-container">
-          <Link to={'/factura'}>
+          <Link to={'/verfactura'}>
             <Button
               text="Imprimir factura"
               onClick={() => console.log('Cuenta abierta exitosamente')}

@@ -14,6 +14,9 @@ const VerFactura = () => {
   const fechaEmisión = '11/03/2024'
   const tipoPago = 'Efectivo'
 
+  //Numero de personas a dividir la cuenta
+  const numeroDePersonas = 3
+
   //Arreglo de productos de prueba para factura
   const productos = [
     { cantidad: 1, nombre: 'Producto A', precio: 10.99 },
@@ -32,6 +35,19 @@ const VerFactura = () => {
       .toFixed(2)
   }
 
+  const calcularTotalDividido = (personas) => {
+    if (personas <= 0) {
+      return 'Error: El número de personas debe ser mayor que 0'
+    }
+
+    const total = productos.reduce(
+      (total, producto) => total + producto.cantidad * producto.precio,
+      0,
+    )
+
+    return (total / personas).toFixed(2)
+  }
+
   // Componente Producto
   function Producto({ cantidad, nombre, precio }) {
     return (
@@ -48,11 +64,12 @@ const VerFactura = () => {
         <p className="titulo__factura__main">
           <h3>FACTURA</h3>
         </p>
-        <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
-        <button className="close-button" onClick={'/mesaMesero'}>
-          X
-        </button>
+
+        <Link to={'/mesaMesero'}>
+          <button className="close-button">X</button>
+        </Link>
       </div>
+      <img src="../resources/mainlogo.png" alt="Logo" className="main__logo__factura" />
       <div className="info__empresa">
         <p>The Cozy Whiskers S.A</p>
         <p>Nit: 456778-2</p>
@@ -112,6 +129,11 @@ const VerFactura = () => {
       <div className="total__factura">
         <span>Total: ${calcularTotal()}</span>
       </div>
+
+      <div className="total_cuenta_dividida">
+        <span>Cantidad a pagar por cada persona: ${calcularTotalDividido(numeroDePersonas)}</span>
+      </div>
+
       <div className="footer_queja">
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>

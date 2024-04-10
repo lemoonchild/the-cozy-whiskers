@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
-import './mesaMesero.css'
+import './meseroCuentaAbierta.css'
 import Input from '../components/input'
 import Button from '../components/button'
 import SelectInput from '../components/selectInput'
 
-const MeseroMesa = () => {
+const MesaCuentaAbierta = () => {
   //Colocar el nombre de empleado y rol según el usuario
   const empleadoNombre = 'Nicolas Bethancourt'
   const rolEmpleado = 'Mesero'
@@ -47,7 +47,7 @@ const MeseroMesa = () => {
   }))
 
   return (
-    <div className="mesaMesero">
+    <div className="mesaMesero__abierta">
       <div className="header">
         <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
@@ -60,55 +60,39 @@ const MeseroMesa = () => {
         </div>
       </div>
       <div className="header-title">
-        <p className="main__title">¡Hola de nuevo!</p>
+        <p className="main__title">Buscar una mesa existente</p>
         <p className="current-time">{currentTime.toLocaleTimeString()}</p>
       </div>
 
-      <form className="table__form">
+      <form className="table__form__abierto">
         <SelectInput
           label="Seleccionar mesa:"
           name="table"
           id="table-select"
           options={availableTablesOptions}
           onChange={(e) => setSelectedTable(e.target.value)}
-          size="4" // Esto mostrará 4 opciones sin necesidad de desplegar
+          size="4"
         />
-        <Input //INFORMACIÓN DE PERSONAS EN MESA
-          className="table__input__mesero"
-          label="Personas en la mesa"
-          type="people-amount"
-          name="people-amount"
-          id="people-amount"
-          placeholder="Introduce cuantas personas se encuentran en la mesa"
-          isNumeric={true}
-        />
+
         <div className="mesa__button__container">
           <Link to={'/ordenMesero'}>
             <Button
-              text="Abrir cuenta" //Opción de abrir cuenta
-              onClick={() => console.log('Cuenta abierta exitosamente')}
-            />
-          </Link>
-        </div>
-        <div className="mesa__button__container__orden">
-          <Link to={'/mesaCuentaAbierta'}>
-            <Button
-              text="Buscar cuenta existente" //Opción de abrir cuenta
+              text="Crear nuevo pedido" //Opción de abrir cuenta
               onClick={() => console.log('Cuenta abierta exitosamente')}
             />
           </Link>
         </div>
       </form>
 
-      <div className="footer_mesa">
+      <div className="footer_mesa__abierto">
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
     </div>
   )
 }
 
-const MesaMesero = ({ action }) => {
-  return <div>{action === 'mesaMesero' && <MeseroMesa />}</div>
+const MesaMeseroCuentaAbierta = ({ action }) => {
+  return <div>{action === 'mesaMeseroCuentaAbierta' && <MesaCuentaAbierta />}</div>
 }
 
-export default MesaMesero
+export default MesaMeseroCuentaAbierta

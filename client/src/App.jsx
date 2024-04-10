@@ -11,6 +11,8 @@ import EncuestaSatisfaccion from './pages/encuestaSatisfaccion'
 import Queja from './pages/queja'
 import Reportes from './pages/reportes'
 import VerFacturaUsuario from './pages/factura'
+import VerReporteAdmin from './pages/infoReportes'
+import MeseroMesaCuentaAbierta from './pages/meseroCuentaAbierta'
 
 function App() {
   return (
@@ -35,6 +37,11 @@ function App() {
           element={<InformaciondeFactura action="informacionFactura" />}
         />
         <Route path="/reportes" element={<Reportes action="reportes" />} />
+        <Route
+          path="/mesaCuentaAbierta"
+          element={<MeseroMesaCuentaAbierta action="mesaMeseroCuentaAbierta" />}
+        />
+        <Route path="/verReporte" element={<VerReporteAdmin action="verReporte" />} />
       </Routes>
     </Router>
   )

@@ -1,7 +1,4 @@
 .input-group select {
-  border: 2px solid #884a39;
-  border-radius: 10px;
-  padding: 10px;
   font-size: 16px;
   background-color: white;
   font-family: 'Biryani', sans-serif;
@@ -9,9 +6,18 @@
   outline: none;
   margin: 0 auto;
   min-width: 430px;
+  height: auto;
+  max-height: 200px;
 }
 
 .input-group label {
   margin: 0 auto;
   min-width: 430px;
+}
+
+/* Cambia el color de fondo y de texto de la opción seleccionada */
+.input-group select option:checked,
+.input-group select option:hover {
+  background-color: #c38154; /* tu color de fondo deseado */
+  color: white; /* tu color de texto deseado */
 }

@@ -1,0 +1,60 @@
+.ver__reporte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background: white;
+  z-index: 0;
+}
+
+.header__reporte {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  padding: 0px 80px;
+  background-color: transparent;
+  padding-bottom: 0;
+}
+
+.main__logo__reporte {
+  height: 100px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-left: 70%;
+}
+
+.titulo__reporte__main {
+  font-family: 'Biryani', sans-serif;
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 0;
+  color: black;
+  z-index: 4;
+  margin-top: -10px;
+}
+
+.info__empresa__reporte {
+  font-family: 'Biryani', sans-serif;
+  font-size: 15px;
+  margin-top: -100px;
+  margin-right: 70%;
+}
+
+.fecha__emision {
+  font-family: 'Biryani', sans-serif;
+  font-size: 15px;
+  margin-top: 50px;
+  margin-right: 62%;
+}
+
+.fecha__emision span {
+  font-weight: bold;
+}

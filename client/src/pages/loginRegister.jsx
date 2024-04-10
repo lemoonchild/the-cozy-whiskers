@@ -80,6 +80,7 @@ const Register = () => {
             name="role"
             id="role"
             options={roles}
+            size="4"
           />
           <div className="login__button-container">
             <Link to={'/barista'}>

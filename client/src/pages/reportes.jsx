@@ -99,7 +99,14 @@ const ReportesAdmin = () => {
             <label>Fecha Fin:</label>
             <input type="date" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} />
           </div>
-          <Button text="Generar Reporte" onClick={generarReporte} className="popup-button-fecha" />
+
+          <Link to={'/verReporte'}>
+            <Button
+              text="Generar Reporte"
+              onClick={generarReporte}
+              className="popup-button-fecha"
+            />
+          </Link>
         </div>
       </PopupFecha>
 

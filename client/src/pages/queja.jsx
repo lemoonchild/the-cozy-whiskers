@@ -6,7 +6,6 @@ import Button from '../components/button'
 import Input from '../components/input'
 import Slider from '../components/slider'
 import RadioButton from '../components/radioButton'
-import SearchBar from '../components/searchBar'
 
 const QuejaProducto = () => {
   //Colocar el nombre de empleado y rol según el usuario
@@ -174,6 +173,7 @@ const QuejaProducto = () => {
           <p className="slider-label">Clasificación:</p>
           <Slider min={1} max={5} value={sliderValue} onChange={handleSliderChange} step={1} />
         </div>
+
         {renderSearchBar()}
 
         <div className="radio-buttons-container">
@@ -209,9 +209,7 @@ const QuejaProducto = () => {
           isNumeric={false}
         />
         <div className="button__queja">
-          <Link
-            to={'/factura'} //Envía a página para ver pedidos del mesero
-          >
+          <Link to={'/verfactura'}>
             <Button text="Enviar queja" onClick={() => console.log('Ver pedido')} />
           </Link>
         </div>
