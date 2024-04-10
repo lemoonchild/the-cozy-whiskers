@@ -50,6 +50,10 @@ const QuejaProducto = () => {
     empleados: [
       { id: 1, label: 'Juan Perez' },
       { id: 2, label: 'Ana Gómez' },
+      { id: 1, label: 'Juan Perez' },
+      { id: 2, label: 'Ana Gómez' },
+      { id: 1, label: 'Juan Perez' },
+      { id: 2, label: 'Ana Gómez' },
     ],
     platos: [
       { id: 1, label: 'Bagel con huevo, jamón y queso' },

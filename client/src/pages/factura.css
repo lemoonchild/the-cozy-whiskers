@@ -1,0 +1,122 @@
+.ver__factura {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background: white;
+  z-index: 0;
+}
+
+.header__factura {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  padding: 0px 80px;
+  background-color: transparent;
+  padding-bottom: 0;
+}
+
+.main__logo {
+  height: 100px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.titulo__factura__main {
+  font-family: 'Biryani', sans-serif;
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 0;
+  color: black;
+  z-index: 4;
+  margin-top: 50px;
+}
+
+.info__empresa {
+  font-family: 'Biryani', sans-serif;
+  font-size: 15px;
+  margin-top: 20px;
+  margin-right: 70%;
+}
+
+.info__usuario__factura {
+  margin-top: 20px;
+  margin-right: 70%;
+}
+.titulo__factura {
+  font-family: 'Biryani', sans-serif;
+  color: #884a39;
+  font-size: 20px;
+}
+
+.informacion__factura {
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  font-size: 15px;
+}
+.informacion__factura span {
+  font-weight: bold;
+}
+
+.info__factura {
+  margin-top: -11%;
+  margin-left: -15%;
+}
+
+.factura_usuario {
+  display: flex;
+  flex-direction: row;
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  font-weight: bold;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  gap: 600px;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.productos__factura {
+  display: grid;
+  grid-template-columns: 2fr 5fr 2fr;
+  column-gap: 600px;
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.total__factura {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  justify-content: end;
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  padding-left: 57%;
+  margin-bottom: 20px;
+}
+
+.total__factura span {
+  grid-column: 3 / -1;
+  border-top: 1px solid #000;
+  text-align: right;
+}
+.button__queja,
+.button__satisfaccion {
+  margin-left: 70%;
+}
+
+.button__satisfaccion {
+  margin-top: -170px;
+  margin-bottom: -30px;
+}

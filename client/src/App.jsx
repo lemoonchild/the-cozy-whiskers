@@ -10,6 +10,7 @@ import InformaciondeFactura from './pages/infoFactura'
 import EncuestaSatisfaccion from './pages/encuestaSatisfaccion'
 import Queja from './pages/queja'
 import Reportes from './pages/reportes'
+import VerFacturaUsuario from './pages/factura'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           element={<EncuestaSatisfaccion action="encuestaSatisfaccion" />}
         />
         <Route path="/queja" element={<Queja action="queja" />} />
+        <Route path="/verfactura" element={<VerFacturaUsuario action="verfactura" />} />
         <Route
           path="/informacionFactura"
           element={<InformaciondeFactura action="informacionFactura" />}
