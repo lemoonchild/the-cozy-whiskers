@@ -1,0 +1,44 @@
+.popup-overlay-fecha {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.popup-content-fecha {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+  z-index: 1001;
+  display: flex;
+  flex-direction: row;
+  border: 2px solid #884a39;
+}
+
+.popup-close-fecha {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  color: #884a39;
+  cursor: pointer;
+}
+.popup-close-fecha:hover {
+  color: #c59d5f;
+}
+
+.popup-content-inner {
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  flex: 2;
+  padding-left: 20px;
+}

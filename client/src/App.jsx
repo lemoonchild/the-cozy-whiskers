@@ -9,6 +9,7 @@ import VerPedidosMesero from './pages/verPedidoMesero'
 import InformaciondeFactura from './pages/infoFactura'
 import EncuestaSatisfaccion from './pages/encuestaSatisfaccion'
 import Queja from './pages/queja'
+import Reportes from './pages/reportes'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           path="/informacionFactura"
           element={<InformaciondeFactura action="informacionFactura" />}
         />
+        <Route path="/reportes" element={<Reportes action="reportes" />} />
       </Routes>
     </Router>
   )

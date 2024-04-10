@@ -1,0 +1,152 @@
+.reportes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background: white;
+  z-index: 0;
+}
+
+.header {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  padding: 0px 80px;
+  background-color: transparent;
+  padding-bottom: 0;
+  border-bottom: 2px solid black;
+}
+
+.header-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin-top: 40px;
+}
+
+.main__title,
+.current-time {
+  font-family: 'Biryani', sans-serif;
+  margin: 0; /* Elimina cualquier margen */
+}
+
+.main__title {
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.current-time {
+  color: black;
+  font-size: 20px;
+}
+
+.main__logo {
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.employee-info {
+  display: flex;
+  gap: 70px;
+  text-align: right;
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  margin-top: 30px;
+}
+
+.name__empleado,
+.rol__empleado {
+  margin: 0;
+  font-size: 1rem;
+  padding: 0;
+  margin-top: -10%;
+}
+.name__empleado span,
+.rol__empleado span {
+  font-weight: bold;
+}
+
+.reportes__button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.reportes__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 200px;
+  background-color: #c38154;
+  width: 80%;
+  margin-top: 120px;
+}
+
+.page__message {
+  font-family: 'Biryani', sans-serif;
+  color: white;
+  font-weight: bold;
+}
+
+.reportes__button-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  row-gap: 10px;
+  margin-top: 20px;
+  width: 80%;
+}
+
+.title-style-popup {
+  padding-top: 20px; /* o cualquier valor que prefieras */
+  margin-left: -10px;
+}
+
+.reportes__button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: white;
+  border: none;
+  font-size: 18px;
+  height: 120px;
+  max-width: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.popup-content-fecha input[type='date'] {
+  font-family: 'Biryani', sans-serif;
+  color: black;
+  border: 2px solid #884a39;
+  padding: 8px;
+  width: calc(100% - 20px);
+  margin: 10px 0;
+  margin-bottom: 20px;
+}
+
+.popup-button-fecha {
+  background-color: #c38154;
+  color: white;
+  border: none;
+  height: 50px;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-left: 85px;
+  cursor: pointer;
+  font-family: 'Biryani', sans-serif;
+}
+
+.popup-button-fecha:hover {
+  background-color: #884a39; /* Color más oscuro para el hover */
+}
