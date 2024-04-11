@@ -12,8 +12,17 @@ const InformacionFactura = () => {
   const empleadoNombre = 'Nicolas Bethancourt'
   const rolEmpleado = 'Mesero'
 
+  //Numero de mesa para el titulo
   const numeroMesa = 12
 
+  //checkbox
+  const [isDividedBill, setIsDividedBill] = useState(false) // Estado para el checkbox
+
+  const handleCheckboxChange = (e) => {
+    setIsDividedBill(e.target.checked) // Actualiza el estado cuando el checkbox cambia
+  }
+
+  //Opciones de pago
   const payOptions = [
     { value: 'efectivo', label: 'Efectivo' },
     { value: 'tarjera', label: 'Tarjeta' },
@@ -66,7 +75,7 @@ const InformacionFactura = () => {
             />
           </div>
           <div className="facturainput">
-            <Input //INFORMACIÓN NIT
+            <Input //INFORMACIÓN NOMBRE
               className="table__input"
               label="Ingrese el nombre:"
               type="text"
@@ -79,7 +88,7 @@ const InformacionFactura = () => {
         </div>
         <div className="factura__column2">
           <div className="facturainput">
-            <Input //INFORMACIÓN NIT
+            <Input //INFORMACIÓN DE DIRECCION
               className="table__input"
               label="Ingrese la direccion:"
               type="text"
@@ -99,12 +108,15 @@ const InformacionFactura = () => {
             />
           </div>
         </div>
+        <div className="checkbox-container">
+          <label className="checkbox-label">
+            <input type="checkbox" checked={isDividedBill} onChange={handleCheckboxChange} />
+            ¿Necesita la cuenta dividida?
+          </label>
+        </div>
         <div className="factura__button-container">
           <Link to={'/verfactura'}>
-            <Button
-              text="Imprimir factura"
-              onClick={() => console.log('Cuenta abierta exitosamente')}
-            />
+            <Button text="Imprimir factura" />
           </Link>
         </div>
       </form>

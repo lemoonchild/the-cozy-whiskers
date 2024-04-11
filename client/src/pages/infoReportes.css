@@ -62,22 +62,22 @@
 
 table {
   width: 80%;
-  border-collapse: separate; /* Esto asegura que el espaciado entre celdas funcione */
-  border-spacing: 0 1em; /* Espaciado vertical entre filas */
+  border-collapse: separate;
+  border-spacing: 0 1em;
 }
 
 th,
 td {
-  padding: 0.5em 8em; /* Espaciado interno en las celdas para separar el texto de los bordes */
-  text-align: center; /* Alinea el texto a la izquierda */
+  padding: 0.5em 8em;
+  text-align: center;
 }
 
 th {
-  background-color: #f9e0bb; /* Color de fondo para los encabezados de tabla */
-  font-weight: 600; /* Hace que la fuente de los encabezados sea más gruesa */
+  background-color: #f9e0bb;
+  font-weight: 600;
   opacity: 0.9;
 }
 
 tbody tr {
-  background-color: #ffffff; /* Color de fondo para las filas del cuerpo de la tabla */
+  background-color: #ffffff;
 }

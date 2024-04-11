@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Button from '../components/button'
+import { useLocation } from 'react-router-dom'
+
 import './infoReportes.css'
 
 const VerReportes = () => {
@@ -47,7 +48,7 @@ const VerReportes = () => {
     <div className="ver__reporte">
       <div className="header__reporte">
         <p className="titulo__reporte__main">
-          <h3>Reporte de: {}</h3>
+          <h3>Reporte the cozy whiskers</h3>
         </p>
 
         <Link to={'/reportes'}>

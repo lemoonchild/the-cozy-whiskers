@@ -24,8 +24,7 @@ const VerFactura = () => {
     { cantidad: 3, nombre: 'Producto C', precio: 11.99 },
     { cantidad: 5, nombre: 'Producto D', precio: 6.0 },
     { cantidad: 10, nombre: 'Producto E', precio: 12.98 },
-    { cantidad: 12, nombre: 'Producto F', precio: 7.5 },
-    // Añade aquí más productos según sea necesario
+    { cantidad: 12, nombre: 'Ensalada de Fideos Fríos Coreanos (Naengmyeon) ', precio: 7.5 },
   ]
 
   // Función para calcular el total
@@ -35,6 +34,7 @@ const VerFactura = () => {
       .toFixed(2)
   }
 
+  // Función para calcular el total devidido
   const calcularTotalDividido = (personas) => {
     if (personas <= 0) {
       return 'Error: El número de personas debe ser mayor que 0'

@@ -26,8 +26,8 @@ const ReportesAdmin = () => {
   const [fechaInicio, setFechaInicio] = useState('')
   const [fechaFin, setFechaFin] = useState('')
 
-  const generarReporte = () => {
-    console.log('Reporte generado con el rango de fechas:', fechaInicio, '-', fechaFin)
+  const handleButtonClick = () => {
+    setIsPopupOpen(true) // Abre el pop-up
   }
 
   return (
@@ -52,19 +52,19 @@ const ReportesAdmin = () => {
         <Button
           text="Platos más pedidos"
           className="reportes__button"
-          onClick={() => setIsPopupOpen(true)}
+          onClick={() => handleButtonClick()}
         />
 
         <Button
           text="Horas pico de pedidos"
           className="reportes__button"
-          onClick={() => setIsPopupOpen(true)}
+          onClick={() => handleButtonClick()}
         />
 
         <Button
           text="Promedio de tiempo de estadía de clientes"
           className="reportes__button"
-          onClick={() => setIsPopupOpen(true)}
+          onClick={() => handleButtonClick()}
         />
       </div>
 
@@ -72,16 +72,19 @@ const ReportesAdmin = () => {
         <Button
           text="Reporte de quejas por plato y bebida"
           className="reportes__button"
-          onClick={() => setIsPopupOpen(true)}
+          onClick={() => handleButtonClick()}
         />
 
         <Button
           text="Reporte de quejas por persona"
           className="reportes__button"
-          onClick={() => setIsPopupOpen(true)}
+          onClick={() => handleButtonClick()}
         />
 
-        <Button text="Reporte de eficiencia de meseros" className="reportes__button" />
+        <Button //ESTE ES EL DE LOS 6 MESES
+          text="Reporte de eficiencia de meseros"
+          className="reportes__button"
+        />
       </div>
 
       <PopupFecha isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)}>
@@ -99,13 +102,8 @@ const ReportesAdmin = () => {
             <label>Fecha Fin:</label>
             <input type="date" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} />
           </div>
-
-          <Link to={'/verReporte'}>
-            <Button
-              text="Generar Reporte"
-              onClick={generarReporte}
-              className="popup-button-fecha"
-            />
+          <Link to="/verReporte">
+            <Button text="Generar Reporte" className="popup-button-fecha" />
           </Link>
         </div>
       </PopupFecha>

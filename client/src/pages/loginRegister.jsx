@@ -74,7 +74,7 @@ const Register = () => {
             id="password"
             placeholder="Introduce tu contraseña"
           />
-          <SelectInput
+          <SelectInput //ROL DEL USUARIO
             className="login-input"
             label="Rol en la empresa"
             name="role"

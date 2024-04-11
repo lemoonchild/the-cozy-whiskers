@@ -49,15 +49,10 @@ const QuejaProducto = () => {
     empleados: [
       { id: 1, label: 'Juan Perez' },
       { id: 2, label: 'Ana Gómez' },
-      { id: 1, label: 'Juan Perez' },
-      { id: 2, label: 'Ana Gómez' },
-      { id: 1, label: 'Juan Perez' },
-      { id: 2, label: 'Ana Gómez' },
     ],
     platos: [
       { id: 1, label: 'Bagel con huevo, jamón y queso' },
       { id: 2, label: 'Bagel con huevo y tocino' },
-      // ... rest of your platos
     ],
     bebidas: [
       { id: 1, label: 'Coca Cola' },
@@ -80,7 +75,7 @@ const QuejaProducto = () => {
           ? 'empleados'
           : selectedOption === 'plato'
           ? 'platos'
-          : 'bebidas' // Asegúrate de que las claves sean 'platos' y 'bebidas' en el objeto data
+          : 'bebidas'
       const filtered = data[category].filter((item) =>
         item.label.toLowerCase().includes(value.toLowerCase()),
       )
@@ -95,14 +90,6 @@ const QuejaProducto = () => {
     setSearchTerm(item.label) // Esto pondrá el nombre del plato o bebida en el search bar.
     setFilteredResults([]) // Esto limpiará los resultados de búsqueda, cerrando la lista.
     // ... manejo de la queja
-  }
-
-  // Función para manejar la queja de un elemento seleccionado
-  const handleQueja = (item) => {
-    // Lógica para procesar la queja del elemento seleccionado
-    console.log('Se ha seleccionado un elemento para la queja:', item)
-    // Ejemplo: se podría establecer el estado de la queja aquí
-    // setQueja({ ...queja, item: item.label });
   }
 
   // Función para renderizar la barra de búsqueda según el RadioButton seleccionado

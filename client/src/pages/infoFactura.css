@@ -36,7 +36,7 @@
 .main__title,
 .current-time {
   font-family: 'Biryani', sans-serif;
-  margin: 0; /* Elimina cualquier margen */
+  margin: 0;
 }
 
 .main__title {
@@ -102,10 +102,10 @@
 }
 
 .factura__button-container {
-  width: 100%; /* Asegura que el botón se centre correctamente */
+  width: 100%;
   display: flex;
-  justify-content: center; /* Centra el botón horizontalmente */
-  margin-top: 20px; /* Aumenta para más espacio sobre el botón */
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .table__input label {
@@ -132,4 +132,9 @@
   font-family: 'Biryani', sans-serif;
   color: white;
   font-weight: bold;
+}
+
+.checkbox-container {
+  font-family: 'Biryani', sans-serif;
+  color: black;
 }

@@ -71,7 +71,7 @@ const MeseroMesa = () => {
           id="table-select"
           options={availableTablesOptions}
           onChange={(e) => setSelectedTable(e.target.value)}
-          size="4" // Esto mostrará 4 opciones sin necesidad de desplegar
+          size="4"
         />
         <Input //INFORMACIÓN DE PERSONAS EN MESA
           className="table__input__mesero"
@@ -93,7 +93,7 @@ const MeseroMesa = () => {
         <div className="mesa__button__container__orden">
           <Link to={'/mesaCuentaAbierta'}>
             <Button
-              text="Buscar cuenta existente" //Opción de abrir cuenta
+              text="Buscar cuenta existente" //Opción de buscar cuenta existente
               onClick={() => console.log('Cuenta abierta exitosamente')}
             />
           </Link>

@@ -69,7 +69,7 @@
 
 .info__factura {
   margin-top: -11%;
-  margin-left: -15%;
+  margin-left: -10%;
 }
 
 .factura_usuario {
@@ -80,16 +80,16 @@
   font-weight: bold;
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
-  gap: 600px;
-  padding-left: 30px;
-  padding-right: 30px;
+  gap: 570px;
+  padding-left: 50px;
+  padding-right: 50px;
   margin-top: 70px;
   margin-bottom: 20px;
 }
 .productos__factura {
   display: grid;
   grid-template-columns: 2fr 5fr 2fr;
-  column-gap: 600px;
+  column-gap: 300px;
   font-family: 'Biryani', sans-serif;
   color: black;
   margin-bottom: 10px;

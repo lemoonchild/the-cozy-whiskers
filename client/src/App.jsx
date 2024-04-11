@@ -21,26 +21,31 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginRegistro action="login" />} />
         <Route path="/register" element={<LoginRegistro action="register" />} />
+
         <Route path="/cocinero" element={<CocineroBarista action="cocinero" />} />
         <Route path="/barista" element={<CocineroBarista action="barista" />} />
+
         <Route path="/mesaMesero" element={<MesaMesero action="mesaMesero" />} />
         <Route path="/ordenMesero" element={<OrdenMesero action="ordenMesero" />} />
         <Route path="/verPedidoMesero" element={<VerPedidosMesero action="verPedidoMesero" />} />
+        <Route
+          path="/mesaCuentaAbierta"
+          element={<MeseroMesaCuentaAbierta action="mesaMeseroCuentaAbierta" />}
+        />
+
         <Route
           path="/encuestaSatisfaccion"
           element={<EncuestaSatisfaccion action="encuestaSatisfaccion" />}
         />
         <Route path="/queja" element={<Queja action="queja" />} />
-        <Route path="/verfactura" element={<VerFacturaUsuario action="verfactura" />} />
+
         <Route
           path="/informacionFactura"
           element={<InformaciondeFactura action="informacionFactura" />}
         />
+        <Route path="/verfactura" element={<VerFacturaUsuario action="verfactura" />} />
+
         <Route path="/reportes" element={<Reportes action="reportes" />} />
-        <Route
-          path="/mesaCuentaAbierta"
-          element={<MeseroMesaCuentaAbierta action="mesaMeseroCuentaAbierta" />}
-        />
         <Route path="/verReporte" element={<VerReporteAdmin action="verReporte" />} />
       </Routes>
     </Router>

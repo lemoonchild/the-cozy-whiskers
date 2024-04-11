@@ -8,7 +8,7 @@ const Cocinero = () => {
   const empleadoNombre = 'Juan Perez'
   const rolEmpleado = 'Barista'
 
-  //Bebidas utilizados para las cartas
+  //Bebidas de prueba utilizados para las cartas
   const [dishes, setDishes] = useState([
     {
       id: 1,
@@ -112,7 +112,6 @@ const Cocinero = () => {
   }, [])
 
   //Cartas
-
   const layoutRef = useRef()
 
   useEffect(() => {
@@ -296,7 +295,6 @@ const Barista = () => {
   }, [])
 
   //Cartas
-
   const layoutRef = useRef()
 
   useEffect(() => {

@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import './encuestaSatisfaccion.css'
 import Input from '../components/input'
 import Button from '../components/button'
-
 import Slider from '../components/slider'
 
 const EncuestaSatisfaccion = () => {
@@ -15,8 +14,8 @@ const EncuestaSatisfaccion = () => {
   //Numero de cuenta a la que se le aplica la encuesta de satisfaccion
   const numeroCuenta = 12333
 
-  //Sliders
-  const [sliderValue1, setSliderValue1] = useState(3)
+  //Sliders de preguntas
+  const [sliderValue1, setSliderValue1] = useState(3) //default de 3
   const [sliderValue2, setSliderValue2] = useState(3)
 
   // Handlers para cada slider
@@ -59,7 +58,6 @@ const EncuestaSatisfaccion = () => {
       </div>
       <div className="header-title">
         <p className="main__title">
-          {' '}
           <span>Encuesta satisfaccion para orden #</span> {numeroCuenta}
         </p>
         <p className="current-time">{currentTime.toLocaleTimeString()}</p>
@@ -78,11 +76,23 @@ const EncuestaSatisfaccion = () => {
 
         <div className="slider-group">
           <p className="slider-label">Amabilidad:</p>
-          <Slider min={1} max={5} value={sliderValue1} onChange={handleSliderChange1} step={1} />
+          <Slider //SLIDER DE AMABILIDAD
+            min={1}
+            max={5}
+            value={sliderValue1}
+            onChange={handleSliderChange1}
+            step={1}
+          />
         </div>
         <div className="slider-group">
           <p className="slider-label">Exactitud:</p>
-          <Slider min={1} max={5} value={sliderValue2} onChange={handleSliderChange2} step={1} />
+          <Slider //SLIDER DE EXACTITUD
+            min={1}
+            max={5}
+            value={sliderValue2}
+            onChange={handleSliderChange2}
+            step={1}
+          />
         </div>
 
         <div className="encuesta__button-container">
