@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef } from 'react'
 import './cocineroBarista.css'
 import Card from '../components/card'
 import Popup from '../components/popUp'
+import Button from '../components/button'
 
 const Cocinero = () => {
   //Colocar el nombre de empleado y rol según el usuario
   const empleadoNombre = 'Juan Perez'
-  const rolEmpleado = 'Barista'
+  const rolEmpleado = 'Cocinero'
 
   //Bebidas de prueba utilizados para las cartas
   const [dishes, setDishes] = useState([
@@ -23,7 +24,7 @@ const Cocinero = () => {
       id: 2,
       image: 'https://i.pinimg.com/564x/01/06/46/010646301747e2a765574b2415049621.jpg',
       time: '12:20 pm',
-      title: 'Ensalada fresca de temporada',
+      title: 'Ensalada de Fideos Fríos Coreanos (Naengmyeon)',
       size: 'Grande',
       quantity: 2,
       note: 'Aderezo aparte, sin nueces',
@@ -32,7 +33,7 @@ const Cocinero = () => {
       id: 3,
       image: 'https://i.pinimg.com/564x/fa/1d/31/fa1d31242226ca5f2bf89c6e6c4a50a7.jpg',
       time: '12:20 pm',
-      title: 'Sándwich de pollo grillado',
+      title: 'Sándwich ',
       size: 'Mediano',
       quantity: 1,
       note: 'Sin cebolla, agregar pepinillos',
@@ -147,6 +148,9 @@ const Cocinero = () => {
           <p className="rol__empleado">
             <span>Rol:</span> {rolEmpleado}
           </p>
+        </div>
+        <div className="button__satisfaccion_cocinero">
+          <Button text="Cerrar Sesión" onClick={() => console.log('Registrarse')} />
         </div>
       </div>
       <div className="header-title">
@@ -330,6 +334,9 @@ const Barista = () => {
           <p className="rol__empleado">
             <span>Rol:</span> {rolEmpleado}
           </p>
+        </div>
+        <div className="button__satisfaccion_cocinero">
+          <Button text="Cerrar Sesión" onClick={() => console.log('Registrarse')} />
         </div>
       </div>
       <div className="header-title">

@@ -80,19 +80,6 @@
   margin-top: 108px;
 }
 
-.mesa__button__container {
-  min-width: 200px;
-  min-height: 30px;
-  padding: 10px 20px;
-  margin-bottom: 0;
-  margin-left: 80px;
-}
-
-.mesa__button__container__orden {
-  margin-left: 80px;
-  margin-top: 20px;
-}
-
 .table__input__mesero label {
   margin: 0 auto;
   min-width: 430px;
@@ -118,4 +105,20 @@
   font-family: 'Biryani', sans-serif;
   color: white;
   font-weight: bold;
+}
+
+.button__satisfaccion_mesaMesero {
+  display: flex;
+  margin-top: -20px;
+}
+
+.buttons_mesa {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 20px;
+}
+
+.buttons_mesa button {
+  flex: 0 0 auto;
 }

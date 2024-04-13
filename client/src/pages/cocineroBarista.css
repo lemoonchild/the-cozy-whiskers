@@ -62,6 +62,7 @@
   font-family: 'Biryani', sans-serif;
   color: black;
   margin-top: 30px;
+  margin-left: 350px;
 }
 
 .name__empleado,
@@ -111,7 +112,7 @@
   gap: 10px;
 }
 
-.card {
-  flex: 0 0 auto;
-  width: 190px;
+.button__satisfaccion_cocinero {
+  display: flex;
+  margin-top: -20px;
 }

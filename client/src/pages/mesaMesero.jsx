@@ -58,6 +58,9 @@ const MeseroMesa = () => {
             <span>Rol:</span> {rolEmpleado}
           </p>
         </div>
+        <div className="button__satisfaccion_mesaMesero">
+          <Button text="Cerrar Sesión" onClick={() => console.log('Registrarse')} />
+        </div>
       </div>
       <div className="header-title">
         <p className="main__title">¡Hola de nuevo!</p>
@@ -82,23 +85,23 @@ const MeseroMesa = () => {
           placeholder="Introduce cuantas personas se encuentran en la mesa"
           isNumeric={true}
         />
-        <div className="mesa__button__container">
-          <Link to={'/ordenMesero'}>
-            <Button
-              text="Abrir cuenta" //Opción de abrir cuenta
-              onClick={() => console.log('Cuenta abierta exitosamente')}
-            />
-          </Link>
-        </div>
-        <div className="mesa__button__container__orden">
-          <Link to={'/mesaCuentaAbierta'}>
-            <Button
-              text="Buscar cuenta existente" //Opción de buscar cuenta existente
-              onClick={() => console.log('Cuenta abierta exitosamente')}
-            />
-          </Link>
-        </div>
       </form>
+
+      <div className="buttons_mesa">
+        <Link to={'/ordenMesero'}>
+          <Button
+            text="Abrir cuenta" //Opción de abrir cuenta
+            onClick={() => console.log('Cuenta abierta exitosamente')}
+          />
+        </Link>
+
+        <Link to={'/mesaCuentaAbierta'}>
+          <Button
+            text="Buscar cuenta existente" //Opción de buscar cuenta existente
+            onClick={() => console.log('Cuenta abierta exitosamente')}
+          />
+        </Link>
+      </div>
 
       <div className="footer_mesa">
         <p className="page__message">Your Second Home, with a Feline Twist</p>
