@@ -1,13 +1,18 @@
 import React from 'react'
 import './input.css'
 
-const Input = ({ label, type, name, id, placeholder, className, isNumeric }) => {
+const Input = ({ label, type, name, id, placeholder, className, isNumeric, onValueChange }) => {
   const handleInputChange = (e) => {
+    let inputValue = e.target.value;
+
     if (isNumeric) {
-      const value = e.target.value.replace(/\D/g, '')
-      e.target.value = value
+      inputValue = inputValue.replace(/\D/g, '');
     }
-  }
+
+    if (onValueChange) {
+      onValueChange(inputValue);
+    }
+  };
 
   return (
     <div className={`input-group ${className}`}>
