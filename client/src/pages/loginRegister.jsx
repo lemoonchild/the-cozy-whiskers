@@ -1,11 +1,65 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Button from '../components/button'
-import Input from '../components/input'
-import SelectInput from '../components/selectInput'
-import './loginRegister.css'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Button from '../components/button';
+import Input from '../components/input';
+import SelectInput from '../components/selectInput';
+import './loginRegister.css';
+
+const API_BASE_URL = 'http://localhost:5001';
+
+const getCurrentDate = () => {
+  const date = new Date();
+  const year = date.getFullYear().toString();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const day = ('0' + date.getDate()).slice(-2);
+  return `${year}-${month}-${day}`;
+}
 
 const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleUsername = (value) => {
+    console.log(value);
+    setUsername(value);
+  };
+
+  const handlePassword = (value) => {
+    setPassword(value);
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault()
+    try {
+      const response = await fetch(`${API_BASE_URL}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      if (data.status === 'success') {
+        navigate('/mesaMesero')
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  }
+
   return (
     <div className="login">
       <img src="../resources/catlogo.png" alt="Title" className="cat__logo" />
@@ -13,7 +67,7 @@ const Login = () => {
       <div className="login__box">
         <h1 className="title__login">Iniciar Sesión</h1>
         <p className="title__description">¡Hola de nuevo!</p>
-        <form className="login__form">
+        <form className="login__form" onSubmit={handleLogin}>
           <Input //INFORMACIÓN DE USUARIO
             className="login-input"
             label="Usuario"
@@ -22,6 +76,7 @@ const Login = () => {
             id="username"
             placeholder="Introduce tu usuario"
             isNumeric={false}
+            onValueChange={handleUsername}
           />
           <Input //INFORMACIÓN DE CONTRASEÑA
             className="login-input"
@@ -31,11 +86,10 @@ const Login = () => {
             id="password"
             placeholder="Introduce tu contraseña"
             isNumeric={false}
+            onValueChange={handlePassword}
           />
           <div className="login__button-container">
-            <Link to={'/mesaMesero'}>
-              <Button text="¡Entrar!" onClick={() => console.log('Inicio de sesión exitoso')} />
-            </Link>
+              <Button type="submit" text="¡Entrar!"/>
           </div>
         </form>
       </div>
@@ -44,6 +98,20 @@ const Login = () => {
 }
 
 const Register = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
+
+  const handleUsername = (value) => {
+    setUsername(value);
+  };
+  const handlePassword = (value) => {
+    setPassword(value);
+  };
+  const handleRole = (value) => {
+    setRole(value);
+  };
+
   const roles = [
     { value: 'mesero', label: 'Mesero' },
     { value: 'cocinero', label: 'Cocinero' },
@@ -64,7 +132,9 @@ const Register = () => {
             type="text"
             name="username"
             id="username"
+            value={username}
             placeholder="Introduce tu usuario"
+            onValueChange={handleUsername}
           />
           <Input //INFORMACIÓN DE CONTRASEÑA
             className="login-input"
@@ -72,7 +142,9 @@ const Register = () => {
             type="password"
             name="password"
             id="password"
+            value={password}
             placeholder="Introduce tu contraseña"
+            onValueChange={handlePassword}
           />
           <SelectInput //ROL DEL USUARIO
             className="login-input"
@@ -81,10 +153,36 @@ const Register = () => {
             id="role"
             options={roles}
             size="4"
+            onValueChange={handleRole}
           />
           <div className="login__button-container">
-            <Link to={'/barista'}>
-              <Button text="¡Bienvenid@!" onClick={() => console.log('Registro exitoso')} />
+            <Link to={'/login'}>
+              <Button text="¡Bienvenid@!" onClick={async () => {
+                try {
+                  const response = await fetch(`${API_BASE_URL}/register`, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      name: username,
+                      role: role,
+                      startDate: getCurrentDate(),
+                      username: username,
+                      password: password
+                    }),
+                  });
+
+                  if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+
+                  const data = await response.json();
+                  console.log(data);
+                } catch (error) {
+                  console.error('An error occurred:', error);
+                }
+              }} />
             </Link>
           </div>
         </form>
