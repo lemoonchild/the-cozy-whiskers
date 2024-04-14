@@ -51,6 +51,9 @@ const Login = () => {
       console.log(data);
 
       if (data.status === 'success') {
+        localStorage.setItem('userLocal', username);
+        localStorage.setItem('passwordLocal', password);
+        
         navigate('/mesaMesero')
       } else {
         alert(data.message);
