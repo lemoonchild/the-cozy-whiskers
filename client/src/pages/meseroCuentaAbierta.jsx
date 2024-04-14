@@ -6,10 +6,48 @@ import Input from '../components/input'
 import Button from '../components/button'
 import SelectInput from '../components/selectInput'
 
+const API_BASE_URL = 'http://localhost:5001'
+
 const MesaCuentaAbierta = () => {
-  //Colocar el nombre de empleado y rol según el usuario
-  const empleadoNombre = 'Nicolas Bethancourt'
-  const rolEmpleado = 'Mesero'
+  const [empleadoNombre, setEmpleadoNombre] = useState('')
+  const [rolEmpleado, setRolEmpleado] = useState('')
+
+  useEffect(() => {
+    const fetchRoleName = async () => {
+      const username = localStorage.getItem('userLocal');
+      const password = localStorage.getItem('passwordLocal');
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/get-role-name`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          setEmpleadoNombre(data.data.nombre);
+          setRolEmpleado(data.data.rol);
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchRoleName();
+  }, []);
 
   // Reloj
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -26,25 +64,43 @@ const MesaCuentaAbierta = () => {
   // Estado para la mesa seleccionada
   const [selectedTable, setSelectedTable] = useState('')
 
+  const [occupiedTablesOptions, setOccupiedTablesOptions] = useState([])
+  const handleSelectedTable = (value) => {
+    setSelectedTable(value);
+  };
   // Opciones de mesas disponibles para el select
-  const availableTablesOptions = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-  ].map((tableNumber) => ({
-    label: `Mesa ${tableNumber}`,
-    value: tableNumber,
-  }))
+  useEffect(() => {
+    const fetchAvailableTables = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/get-occupied-mesas`);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          const tablesOptions = data.data.map((table) => ({
+            label: `Mesa ${table.mesa_id}`,
+            value: table.mesa_id,
+          }));
+
+          setOccupiedTablesOptions(tablesOptions);
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchAvailableTables();
+
+    const interval = setInterval(fetchAvailableTables, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="mesaMesero__abierta">
@@ -69,7 +125,7 @@ const MesaCuentaAbierta = () => {
           label="Seleccionar mesa:"
           name="table"
           id="table-select"
-          options={availableTablesOptions}
+          options={occupiedTablesOptions}
           onChange={(e) => setSelectedTable(e.target.value)}
           size="4"
         />
