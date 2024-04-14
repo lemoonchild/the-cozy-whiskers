@@ -1,17 +1,55 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import './mesaMesero.css'
 import Input from '../components/input'
 import Button from '../components/button'
 import SelectInput from '../components/selectInput'
 
-const MeseroMesa = () => {
-  //Colocar el nombre de empleado y rol según el usuario
-  const empleadoNombre = 'Nicolas Bethancourt'
-  const rolEmpleado = 'Mesero'
+const API_BASE_URL = 'http://localhost:5001'
 
-  // Reloj
+const MeseroMesa = () => {
+  const navigate = useNavigate()
+  const [empleadoNombre, setEmpleadoNombre] = useState('')
+  const [rolEmpleado, setRolEmpleado] = useState('')
+
+  useEffect(() => {
+    const fetchRoleName = async () => {
+      const username = localStorage.getItem('userLocal');
+      const password = localStorage.getItem('passwordLocal');
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/get-role-name`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          setEmpleadoNombre(data.data.nombre);
+          setRolEmpleado(data.data.rol);
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchRoleName();
+  }, []);
+
   const [currentTime, setCurrentTime] = useState(new Date())
 
   useEffect(() => {
@@ -22,29 +60,49 @@ const MeseroMesa = () => {
     return () => clearInterval(timer)
   }, [])
 
-  //Busqueda de mesa
-  // Estado para la mesa seleccionada
   const [selectedTable, setSelectedTable] = useState('')
+  const handleSelectedTable = (value) => {
+    setSelectedTable(value);
+  };
+  const [availableTablesOptions, setAvailableTablesOptions] = useState([]);
+  const [numPeople, setNumPeople] = useState('')
 
-  // Opciones de mesas disponibles para el select
-  const availableTablesOptions = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-  ].map((tableNumber) => ({
-    label: `Mesa ${tableNumber}`,
-    value: tableNumber,
-  }))
+  const handlePeople = (value) => {
+    setNumPeople(value);
+  };
+
+  useEffect(() => {
+    const fetchAvailableTables = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/get-available-mesas`);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          const tablesOptions = data.data.map((table) => ({
+            label: `Mesa ${table.mesa_id}`,
+            value: table.mesa_id,
+          }));
+
+          setAvailableTablesOptions(tablesOptions);
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchAvailableTables();
+
+    const interval = setInterval(fetchAvailableTables, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="mesaMesero">
@@ -59,7 +117,7 @@ const MeseroMesa = () => {
           </p>
         </div>
         <div className="button__satisfaccion_mesaMesero">
-          <Button text="Cerrar Sesión" onClick={() => console.log('Registrarse')} />
+          <Button text="Cerrar Sesión" onClick={() => navigate('/login')} />
         </div>
       </div>
       <div className="header-title">
@@ -73,7 +131,7 @@ const MeseroMesa = () => {
           name="table"
           id="table-select"
           options={availableTablesOptions}
-          onChange={(e) => setSelectedTable(e.target.value)}
+          onValueChange={handleSelectedTable}
           size="4"
         />
         <Input //INFORMACIÓN DE PERSONAS EN MESA
@@ -84,23 +142,47 @@ const MeseroMesa = () => {
           id="people-amount"
           placeholder="Introduce cuantas personas se encuentran en la mesa"
           isNumeric={true}
+          onValueChange={handlePeople}
         />
       </form>
 
       <div className="buttons_mesa">
-        <Link to={'/ordenMesero'}>
-          <Button
-            text="Abrir cuenta" //Opción de abrir cuenta
-            onClick={() => console.log('Cuenta abierta exitosamente')}
-          />
-        </Link>
+        <Button
+          text="Abrir cuenta" //Opción de abrir cuenta
+          onClick={ async() => {
+            try {
+              const response = await fetch('http://localhost:5001/insert-new-cuenta', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  mesa_id_arg: selectedTable,
+                  personas_arg: numPeople,
+                }),
+              });
 
-        <Link to={'/mesaCuentaAbierta'}>
-          <Button
-            text="Buscar cuenta existente" //Opción de buscar cuenta existente
-            onClick={() => console.log('Cuenta abierta exitosamente')}
-          />
-        </Link>
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+
+              const data = await response.json();
+
+              if (data.status === 'success') {
+                navigate('/ordenMesero');
+              } else {
+                alert(data.message);
+              }
+            } catch (error) {
+              console.error('An error occurred:', error);
+            }
+          }}
+        />
+
+        <Button
+          text="Buscar cuenta existente" //Opción de buscar cuenta existente
+          onClick={() => navigate('/mesaCuentaAbierta')}
+        />
       </div>
 
       <div className="footer_mesa">
