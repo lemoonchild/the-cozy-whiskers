@@ -10,6 +10,19 @@
   z-index: 0;
 }
 
+.unauthorized {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 40vh;
+  width: 100vw;
+  background: white;
+  z-index: 0;
+  font-family: 'Biryani', sans-serif;
+}
+
 .header {
   position: relative;
   top: 0;

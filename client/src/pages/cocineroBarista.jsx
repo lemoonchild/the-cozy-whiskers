@@ -1,116 +1,89 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom';
 import './cocineroBarista.css'
 import Card from '../components/card'
 import Popup from '../components/popUp'
 import Button from '../components/button'
 
+
 const Cocinero = () => {
-  //Colocar el nombre de empleado y rol según el usuario
-  const empleadoNombre = 'Juan Perez'
-  const rolEmpleado = 'Cocinero'
+  const navigate = useNavigate();
+  const [empleadoNombre, setEmpleadoNombre] = useState('')
+  const [rolEmpleado, setRolEmpleado] = useState('')
+  const [completedDishes, setCompletedDishes] = useState([]);
+  const [dishes, setDishes] = useState([])
+  const [isPopupOpen, setPopupOpen] = useState(false)
+  const [selectedDish, setSelectedDish] = useState(null)
 
-  //Bebidas de prueba utilizados para las cartas
-  const [dishes, setDishes] = useState([
-    {
-      id: 1,
-      image: '//i.pinimg.com/564x/43/17/c3/4317c3a2ca1f923b43d6d03e98b87351.jpg',
-      time: '12:20 pm',
-      title: 'Bagel con huevo, jamón y queso',
-      size: 'Mediano',
-      quantity: 1,
-      note: 'Pan integral, jamón de pavo',
-    },
-    {
-      id: 2,
-      image: 'https://i.pinimg.com/564x/01/06/46/010646301747e2a765574b2415049621.jpg',
-      time: '12:20 pm',
-      title: 'Ensalada de Fideos Fríos Coreanos (Naengmyeon)',
-      size: 'Grande',
-      quantity: 2,
-      note: 'Aderezo aparte, sin nueces',
-    },
-    {
-      id: 3,
-      image: 'https://i.pinimg.com/564x/fa/1d/31/fa1d31242226ca5f2bf89c6e6c4a50a7.jpg',
-      time: '12:20 pm',
-      title: 'Sándwich ',
-      size: 'Mediano',
-      quantity: 1,
-      note: 'Sin cebolla, agregar pepinillos',
-    },
-    {
-      id: 4,
-      image: '//i.pinimg.com/564x/9e/e2/84/9ee2846b3085976e24d33655e43443f2.jpg',
-      time: '12:20 pm',
-      title: 'Jugo natural de naranja',
-      size: 'Grande',
-      quantity: 1,
-      note: 'Con hielo, sin azúcar',
-    },
-    {
-      id: 5,
-      image: '//i.pinimg.com/564x/43/17/c3/4317c3a2ca1f923b43d6d03e98b87351.jpg',
-      time: '12:20 pm',
-      title: 'Bagel con huevo, jamón y queso',
-      size: 'Mediano',
-      quantity: 1,
-      note: 'Pan integral, jamón de pavo',
-    },
-    {
-      id: 6,
-      image: 'https://i.pinimg.com/564x/01/06/46/010646301747e2a765574b2415049621.jpg',
-      time: '12:20 pm',
-      title: 'Ensalada fresca de temporada',
-      size: 'Grande',
-      quantity: 2,
-      note: 'Aderezo aparte, sin nueces',
-    },
-    {
-      id: 7,
-      image: 'https://i.pinimg.com/564x/fa/1d/31/fa1d31242226ca5f2bf89c6e6c4a50a7.jpg',
-      time: '12:20 pm',
-      title: 'Sándwich de pollo grillado',
-      size: 'Mediano',
-      quantity: 1,
-      note: 'Sin cebolla, agregar pepinillos',
-    },
-    {
-      id: 8,
-      image: '//i.pinimg.com/564x/9e/e2/84/9ee2846b3085976e24d33655e43443f2.jpg',
-      time: '12:20 pm',
-      title: 'Jugo natural de naranja',
-      size: 'Grande',
-      quantity: 1,
-      note: 'Con hielo, sin azúcar',
-    },
-  ])
-
-  //Actualizar la pagina cada 3 segundos
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      console.log('Esto se ejecuta cada 3 segundos')
+    const fetchRoleName = async () => {
+      const API_BASE_URL = 'http://localhost:5001';
+      const username = localStorage.getItem('userLocal');
+      const password = localStorage.getItem('passwordLocal');
 
-      // Aquí es donde se actualiza el estado o las acciones
-      //Ejemplo de llamar función para obtener nuevos datos y actualizar estado con datos:
-      // fetchNuevosDatos().then(nuevosDatos => {
-      //   setDatos(nuevosDatos);
-      // });
-    }, 3000) // Se ejecuta cada 3 segundos
+      try {
+        const response = await fetch(`${API_BASE_URL}/get-role-name`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        });
 
-    // Función de limpieza que React ejecutará cuando el componente se desmonte
-    return () => clearInterval(intervalId)
-  }, []) // Las dependencias vacías indican que solo se ejecuta al montar y desmontar
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          setEmpleadoNombre(data.data.nombre);
+          setRolEmpleado(data.data.rol);
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchRoleName();
+  }, []);
+
+  const API_BASE_URL = 'http://localhost:5001'
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const response = await fetch(`${API_BASE_URL}/fetch-all-orders`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tipo_comida: 'Plato' }),
+      });
+      const data = await response.json();
+      if (data.data) {
+        const filteredDishes = data.data.filter(dish => !completedDishes.includes(dish.detalle_id));
+        setDishes(filteredDishes);
+      }
+    };
+
+    fetchOrders();
+    const intervalId = setInterval(fetchOrders, 3000);
+    return () => clearInterval(intervalId);
+  }, [completedDishes]);
 
   // Reloj
   const [currentTime, setCurrentTime] = useState(new Date())
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
+      setCurrentTime(new Date());
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   //Cartas
   const layoutRef = useRef()
@@ -123,19 +96,15 @@ const Cocinero = () => {
     }
   }, [dishes.length])
 
-  //PopUp de información de la carta
-  const [isPopupOpen, setPopupOpen] = useState(false)
-  const [selectedDish, setSelectedDish] = useState(null)
-
   const handlePrepareClick = (dish) => {
     setSelectedDish(dish)
     setPopupOpen(true)
   }
 
   const removeDish = (dishId) => {
-    setDishes(dishes.filter((dish) => dish.id !== dishId))
-    setPopupOpen(false)
-  }
+    setCompletedDishes(prev => [...prev, dishId]);
+    setPopupOpen(false);
+  };
 
   return (
     <div className="cocinero">
@@ -150,7 +119,10 @@ const Cocinero = () => {
           </p>
         </div>
         <div className="button__satisfaccion_cocinero">
-          <Button text="Cerrar Sesión" onClick={() => console.log('Registrarse')} />
+          <Button text="Cerrar Sesión" onClick={() => {
+            navigate('/')
+          }}
+          />
         </div>
       </div>
       <div className="header-title">
@@ -158,18 +130,29 @@ const Cocinero = () => {
         <p className="current-time">{currentTime.toLocaleTimeString()}</p>
       </div>
       <div className="cocinero-layout" ref={layoutRef}>
-        <div className="cards-container">
-          {dishes.map((dish) => (
-            <Card
-              key={dish.id}
-              image={dish.image}
-              time={dish.time}
-              title={dish.title}
-              onPrepareClick={() => handlePrepareClick(dish)}
-              buttonText="Preparar"
-            />
-          ))}
-        </div>
+        {rolEmpleado === 'Cocinero' ? (
+          <>
+            {dishes.map((dish) => {
+              const date = new Date(dish.fecha_ordenado)
+              const formattedTime = date.toLocaleTimeString('en-US')
+
+              return (
+                <Card
+                  key={dish.detalle_id}
+                  image={dish.imagenlink}
+                  time={formattedTime}
+                  title={dish.nombre_comida}
+                  onPrepareClick={() => handlePrepareClick(dish)}
+                  buttonText="Ver Detalle"
+                />
+              )
+            })}
+          </>
+        ) : (
+          <div className="unauthorized">
+            Usuario con rol no autorizado
+          </div>
+        )}
       </div>
 
       <div className="footer_cb">
@@ -179,124 +162,95 @@ const Cocinero = () => {
       <Popup
         isOpen={isPopupOpen}
         closePopup={() => setPopupOpen(false)}
-        imageSrc={selectedDish?.image}
-        title={`Preparando: ${selectedDish?.title}`}
-        size={selectedDish?.size}
-        quantity={selectedDish?.quantity}
-        note={selectedDish?.note}
-        onRealizado={() => removeDish(selectedDish?.id)}
+        imageSrc={selectedDish?.imagenlink}
+        title={`Preparando: ${selectedDish?.nombre_comida}`}
+        size={selectedDish?.descripcion_medida}
+        quantity={selectedDish?.cantidad}
+        note={selectedDish?.nota}
+        onRealizado={() => removeDish(selectedDish?.detalle_id)}
       ></Popup>
     </div>
   )
 }
 
 const Barista = () => {
-  //Colocar el nombre de empleado y rol según el usuario
-  const empleadoNombre = 'Juan Perez'
-  const rolEmpleado = 'Barista'
+  const navigate = useNavigate();
+  const [empleadoNombre, setEmpleadoNombre] = useState('')
+  const [rolEmpleado, setRolEmpleado] = useState('')
+  const [completedDishes, setCompletedDishes] = useState([]);
+  const [dishes, setDishes] = useState([])
+  const [isPopupOpen, setPopupOpen] = useState(false)
+  const [selectedDish, setSelectedDish] = useState(null)
 
-  //Bebidas utilizados para las cartas
-  const [dishes, setDishes] = useState([
-    {
-      id: 1,
-      image: '//i.pinimg.com/564x/43/17/c3/4317c3a2ca1f923b43d6d03e98b87351.jpg',
-      time: '12:20 pm',
-      title: 'Bagel con huevo, jamón y queso',
-      size: 'Mediano',
-      quantity: 1,
-      note: 'Pan integral, jamón de pavo',
-    },
-    {
-      id: 2,
-      image: 'https://i.pinimg.com/564x/01/06/46/010646301747e2a765574b2415049621.jpg',
-      time: '12:20 pm',
-      title: 'Ensalada fresca de temporada',
-      size: 'Grande',
-      quantity: 2,
-      note: 'Aderezo aparte, sin nueces',
-    },
-    {
-      id: 3,
-      image: 'https://i.pinimg.com/564x/fa/1d/31/fa1d31242226ca5f2bf89c6e6c4a50a7.jpg',
-      time: '12:20 pm',
-      title: 'Sándwich de pollo grillado',
-      size: 'Mediano',
-      quantity: 1,
-      note: 'Sin cebolla, agregar pepinillos',
-    },
-    {
-      id: 4,
-      image: '//i.pinimg.com/564x/9e/e2/84/9ee2846b3085976e24d33655e43443f2.jpg',
-      time: '12:20 pm',
-      title: 'Jugo natural de naranja',
-      size: 'Grande',
-      quantity: 1,
-      note: 'Con hielo, sin azúcar',
-    },
-    {
-      id: 5,
-      image: '//i.pinimg.com/564x/43/17/c3/4317c3a2ca1f923b43d6d03e98b87351.jpg',
-      time: '12:20 pm',
-      title: 'Bagel con huevo, jamón y queso',
-      size: 'Mediano',
-      quantity: 1,
-      note: 'Pan integral, jamón de pavo',
-    },
-    {
-      id: 6,
-      image: 'https://i.pinimg.com/564x/01/06/46/010646301747e2a765574b2415049621.jpg',
-      time: '12:20 pm',
-      title: 'Ensalada fresca de temporada',
-      size: 'Grande',
-      quantity: 2,
-      note: 'Aderezo aparte, sin nueces',
-    },
-    {
-      id: 7,
-      image: 'https://i.pinimg.com/564x/fa/1d/31/fa1d31242226ca5f2bf89c6e6c4a50a7.jpg',
-      time: '12:20 pm',
-      title: 'Sándwich de pollo grillado',
-      size: 'Mediano',
-      quantity: 1,
-      note: 'Sin cebolla, agregar pepinillos',
-    },
-    {
-      id: 8,
-      image: '//i.pinimg.com/564x/9e/e2/84/9ee2846b3085976e24d33655e43443f2.jpg',
-      time: '12:20 pm',
-      title: 'Jugo natural de naranja',
-      size: 'Grande',
-      quantity: 1,
-      note: 'Con hielo, sin azúcar',
-    },
-  ])
-
-  //Actualizar la pagina cada 3 segundos
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      console.log('Esto se ejecuta cada 3 segundos')
+    const fetchRoleName = async () => {
+      const API_BASE_URL = 'http://localhost:5001';
+      const username = localStorage.getItem('userLocal');
+      const password = localStorage.getItem('passwordLocal');
 
-      // Aquí es donde se actualiza el estado o las acciones
-      //Ejemplo de llamar función para obtener nuevos datos y actualizar estado con datos:
-      // fetchNuevosDatos().then(nuevosDatos => {
-      //   setDatos(nuevosDatos);
-      // });
-    }, 3000) // Se ejecuta cada 3 segundos
+      try {
+        const response = await fetch(`${API_BASE_URL}/get-role-name`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        });
 
-    // Función de limpieza que React ejecutará cuando el componente se desmonte
-    return () => clearInterval(intervalId)
-  }, []) // Las dependencias vacías indican que solo se ejecuta al montar y desmontar
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          setEmpleadoNombre(data.data.nombre);
+          setRolEmpleado(data.data.rol);
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchRoleName();
+  }, []);
+
+  const API_BASE_URL = 'http://localhost:5001'
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const response = await fetch(`${API_BASE_URL}/fetch-all-orders`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tipo_comida: 'Bebida' }),
+      });
+      const data = await response.json();
+      if (data.data) {
+        const filteredDishes = data.data.filter(dish => !completedDishes.includes(dish.detalle_id));
+        setDishes(filteredDishes);
+      }
+    };
+
+    fetchOrders();
+    const intervalId = setInterval(fetchOrders, 3000);
+    return () => clearInterval(intervalId);
+  }, [completedDishes]);
 
   // Reloj
   const [currentTime, setCurrentTime] = useState(new Date())
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
+      setCurrentTime(new Date());
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   //Cartas
   const layoutRef = useRef()
@@ -309,19 +263,15 @@ const Barista = () => {
     }
   }, [dishes.length])
 
-  //PopUp de información de la carta
-  const [isPopupOpen, setPopupOpen] = useState(false)
-  const [selectedDish, setSelectedDish] = useState(null)
-
   const handlePrepareClick = (dish) => {
     setSelectedDish(dish)
     setPopupOpen(true)
   }
 
   const removeDish = (dishId) => {
-    setDishes(dishes.filter((dish) => dish.id !== dishId))
-    setPopupOpen(false)
-  }
+    setCompletedDishes(prev => [...prev, dishId]);
+    setPopupOpen(false);
+  };
 
   return (
     <div className="cocinero">
@@ -336,7 +286,10 @@ const Barista = () => {
           </p>
         </div>
         <div className="button__satisfaccion_cocinero">
-          <Button text="Cerrar Sesión" onClick={() => console.log('Registrarse')} />
+          <Button text="Cerrar Sesión" onClick={() => {
+            navigate('/')
+          }}
+          />
         </div>
       </div>
       <div className="header-title">
@@ -344,18 +297,29 @@ const Barista = () => {
         <p className="current-time">{currentTime.toLocaleTimeString()}</p>
       </div>
       <div className="cocinero-layout" ref={layoutRef}>
-        <div className="cards-container">
-          {dishes.map((dish) => (
-            <Card
-              key={dish.id}
-              image={dish.image}
-              time={dish.time}
-              title={dish.title}
-              onPrepareClick={() => handlePrepareClick(dish)}
-              buttonText="Preparar"
-            />
-          ))}
-        </div>
+        {rolEmpleado === 'Barista' ? (
+          <>
+            {dishes.map((dish) => {
+              const date = new Date(dish.fecha_ordenado)
+              const formattedTime = date.toLocaleTimeString('en-US')
+
+              return (
+                <Card
+                  key={dish.detalle_id}
+                  image={dish.imagenlink}
+                  time={formattedTime}
+                  title={dish.nombre_comida}
+                  onPrepareClick={() => handlePrepareClick(dish)}
+                  buttonText="Ver Detalle"
+                />
+              )
+            })}
+          </>
+        ) : (
+          <div className="unauthorized">
+            Usuario con rol no autorizado
+          </div>
+        )}
       </div>
 
       <div className="footer_cb">
@@ -365,12 +329,12 @@ const Barista = () => {
       <Popup
         isOpen={isPopupOpen}
         closePopup={() => setPopupOpen(false)}
-        imageSrc={selectedDish?.image}
-        title={`Preparando: ${selectedDish?.title}`}
-        size={selectedDish?.size}
-        quantity={selectedDish?.quantity}
-        note={selectedDish?.note}
-        onRealizado={() => removeDish(selectedDish?.id)}
+        imageSrc={selectedDish?.imagenlink}
+        title={`Preparando: ${selectedDish?.nombre_comida}`}
+        size={selectedDish?.descripcion_medida}
+        quantity={selectedDish?.cantidad}
+        note={selectedDish?.nota}
+        onRealizado={() => removeDish(selectedDish?.detalle_id)}
       ></Popup>
     </div>
   )
