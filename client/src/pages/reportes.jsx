@@ -9,7 +9,7 @@ const ReportesAdmin = () => {
   const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
   const [empleadoNombre, setEmpleadoNombre] = useState('')
   const [rolEmpleado, setRolEmpleado] = useState('')
-  
+
   useEffect(() => {
     const fetchRoleName = async () => {
       const username = localStorage.getItem('userLocal');
@@ -90,7 +90,7 @@ const ReportesAdmin = () => {
         <p className="current-time">{currentTime.toLocaleTimeString()}</p>
       </div>
 
-      <div className="reportes__button-container" > 
+      <div className="reportes__button-container" >
         <Button
           text="Platos más pedidos"
           className="reportes__button"
@@ -122,12 +122,13 @@ const ReportesAdmin = () => {
           className="reportes__button"
           onClick={() => handleButtonClick('report-complaints-by-person')}
         />
-        
-        <Button //ESTE ES EL DE LOS 6 MESES
-          text="Reporte de eficiencia de meseros"
-          className="reportes__button"
-          onClick={localStorage.setItem('reportAPI', 'report-waiter-efficiency-6-months')}
-        />
+        <Link to="/verReporte">
+          <Button //ESTE ES EL DE LOS 6 MESES
+            text="Reporte de eficiencia de meseros"
+            className="reportes__button"
+            onClick={() => localStorage.setItem('reportAPI', 'report-server-efficiency-last-6-months')}
+          />
+        </Link>
       </div>
 
       <PopupFecha isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)}>
@@ -146,7 +147,7 @@ const ReportesAdmin = () => {
             <input type="date" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} />
           </div>
           <Link to="/verReporte">
-            <Button text="Generar Reporte" className="popup-button-fecha" onClick={handleDateSubmit}/>
+            <Button text="Generar Reporte" className="popup-button-fecha" onClick={handleDateSubmit} />
           </Link>
         </div>
       </PopupFecha>
