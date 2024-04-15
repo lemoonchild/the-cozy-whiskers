@@ -7,8 +7,8 @@ import Button from '../components/button'
 import PopupEditable from '../components/popUpEditable'
 
 const OrdenMesero = () => {
-  //Numero de mesa
-  const numeroMesa = 12
+  const numeroMesa = localStorage.getItem('numTable')
+  const API_BASE_URL = 'http://localhost:5001'
 
   // Reloj
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -28,13 +28,32 @@ const OrdenMesero = () => {
   const [filteredDishes, setFilteredDishes] = useState([])
 
   // Lista simulada de platos o bebidas
-  const dishes = [
-    'Bagel con huevo, jamón y queso',
-    'Bagel con huevo y tocino',
-    'Bagel con huevo y frijol',
-    'Bagel con huevo y aguacate',
-    'Huevos con tocino',
-  ]
+  const [dishes, setDishes] = useState([])
+
+  // Fetch dishes from the server
+  useEffect(() => {
+    const fetchDishes = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/food-plates`);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const data = await response.json()
+
+        if (data.status === 'success') {
+          setDishes(data.data)
+        } else {
+          console.error('Failed to fetch dishes:', data.message)
+        }
+      } catch (error) {
+        console.error('An error occurred:', error)
+      }
+    }
+
+    fetchDishes()
+  }, [])
 
   //Busqueda
   const handleSearch = (event) => {
@@ -42,7 +61,9 @@ const OrdenMesero = () => {
     console.log('Valor de búsqueda:', value) // Debería mostrar la entrada del usuario
     setSearchTerm(value)
     if (value) {
-      const filtered = dishes.filter((dish) => dish.toLowerCase().includes(value.toLowerCase()))
+      const filtered = dishes.filter((dish) =>
+        dish.nombre.toLowerCase().includes(value.toLowerCase())
+      )
       console.log('Platos filtrados:', filtered) // Debería mostrar los platos o bebidas filtrados
       setFilteredDishes(filtered)
     } else {
@@ -53,11 +74,13 @@ const OrdenMesero = () => {
   // PopUp
   const [isPopupEditableOpen, setIsPopupEditableOpen] = useState(false)
   const [currentDishName, setCurrentDishName] = useState('')
+  const [currentDishID, setCurrentDishID] = useState('')
 
-  const openPopupEditable = (dishName) => {
-    setCurrentDishName(dishName)
-    setIsPopupEditableOpen(true)
-  }
+  const openPopupEditable = (dishName, dishID) => {
+    setCurrentDishName(dishName);
+    setCurrentDishID(dishID);
+    setIsPopupEditableOpen(true);
+  };
 
   return (
     <div className="ordenMesero">
@@ -89,13 +112,13 @@ const OrdenMesero = () => {
         />
         {searchTerm && (
           <div className="search-results-orden">
-            {filteredDishes.map((dish, index) => (
+            {filteredDishes.map((dish) => (
               <div
-                key={index}
+                key={dish.nombre}
                 className="search-item-orden"
-                onClick={() => openPopupEditable(dish)}
+                onClick={() => openPopupEditable(dish.nombre, dish.platobebida_id)}
               >
-                {dish}
+                {dish.nombre}
               </div>
             ))}
           </div>
@@ -105,6 +128,7 @@ const OrdenMesero = () => {
           isOpen={isPopupEditableOpen}
           closePopup={() => setIsPopupEditableOpen(false)}
           dishName={currentDishName}
+          platoID={currentDishID}
         />
       </div>
       <div className="button__orden">
