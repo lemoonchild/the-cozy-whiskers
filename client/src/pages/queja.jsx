@@ -8,19 +8,78 @@ import Slider from '../components/slider'
 import RadioButton from '../components/radioButton'
 
 const QuejaProducto = () => {
+  const API_BASE_URL = 'http://localhost:5001'
   //Colocar el nombre de empleado y rol según el usuario
-  const empleadoNombre = 'Nicolas Bethancourt'
-  const rolEmpleado = 'Mesero'
-  //Numero de mesa
-  const numeroCuenta = 12
-
-  //Slider
+  const [empleadoNombre, setEmpleadoNombre] = useState('')
+  const [rolEmpleado, setRolEmpleado] = useState('')
+  const [NITValue, setNITValue] = useState('') // Estado para el NIT
+  const [queja, setQueja] = useState('') // Estado para el NIT
   const [sliderValue, setSliderValue] = useState(3)
+  const [selectedEmpleadoId, setSelectedEmpleadoId] = useState(0);
+  const [selectedPlatoBebidaId, setSelectedPlatoBebidaId] = useState(0);
+
+
+  const handleSubmitQueja = () => {
+    localStorage.setItem('NIT', NITValue)
+    localStorage.setItem('queja', queja)
+    localStorage.setItem('clasificacion', sliderValue)
+    localStorage.setItem('empleado_id', selectedEmpleadoId)
+    localStorage.setItem('platobebida_id', selectedPlatoBebidaId)
+  }
 
   // Handlers para cada slider
   const handleSliderChange = (e) => {
     setSliderValue(e.target.value)
   }
+
+  const handleNITChange = (value) => {
+    setNITValue(value)
+  }
+
+  const handleQuejaChange = (value) => {
+    setQueja(value)
+  }
+
+  useEffect(() => {
+    const fetchRoleName = async () => {
+      const username = localStorage.getItem('userLocal');
+      const password = localStorage.getItem('passwordLocal');
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/get-role-name`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          setEmpleadoNombre(data.data.nombre);
+          setRolEmpleado(data.data.rol);
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchRoleName();
+  }, []);
+  //Numero de mesa
+  const numeroCuenta = localStorage.getItem('numTable')
+
+  //Slider
 
   // Reloj
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -43,22 +102,55 @@ const QuejaProducto = () => {
   }
 
   //Elementos para la busqueda
+  const [employees, setEmployees] = useState([]);
+  const [food, setFood] = useState([]);
+  const [drinks, setDrinks] = useState([]);
 
-  //Datos de prueba
-  const data = {
-    empleados: [
-      { id: 1, label: 'Juan Perez' },
-      { id: 2, label: 'Ana Gómez' },
-    ],
-    platos: [
-      { id: 1, label: 'Bagel con huevo, jamón y queso' },
-      { id: 2, label: 'Bagel con huevo y tocino' },
-    ],
-    bebidas: [
-      { id: 1, label: 'Coca Cola' },
-      { id: 2, label: 'Agua Mineral' },
-    ],
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      let response;
+      let data;
+
+      try {
+        if (selectedOption === 'Empleado') {
+          response = await fetch(`${API_BASE_URL}/list-employees`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+          });
+        } else if (selectedOption === 'Plato' || selectedOption === 'Bebida') {
+          response = await fetch(`${API_BASE_URL}/food-by-type`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: selectedOption }),
+          });
+        }
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        data = await response.json();
+
+        if (data.status === 'success') {
+          if (selectedOption === 'Empleado') {
+            setEmployees(data.data);
+          } else if (selectedOption === 'Plato') {
+            setFood(data.data);
+          } else if (selectedOption === 'Bebida') {
+            setDrinks(data.data);
+          }
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    if (selectedOption) {
+      fetchData();
+    }
+  }, [selectedOption]);
 
   // Estado para manejar la entrada de búsqueda y los resultados filtrados
   const [searchTerm, setSearchTerm] = useState('')
@@ -66,30 +158,37 @@ const QuejaProducto = () => {
 
   // Función para manejar el cambio en la barra de búsqueda
   const handleSearchChange = (event) => {
-    const value = event.target.value
-    setSearchTerm(value)
+    const value = event.target.value;
+    setSearchTerm(value);
 
     if (value) {
-      const category =
-        selectedOption === 'empleado'
-          ? 'empleados'
-          : selectedOption === 'plato'
-          ? 'platos'
-          : 'bebidas'
-      const filtered = data[category].filter((item) =>
-        item.label.toLowerCase().includes(value.toLowerCase()),
-      )
-      setFilteredResults(filtered)
+      let filtered = [];
+      if (selectedOption === 'Empleado') {
+        filtered = employees.filter(item => item.nombre.toLowerCase().includes(value.toLowerCase()));
+      } else if (selectedOption === 'Plato') {
+        filtered = food.filter(item => item.nombre.toLowerCase().includes(value.toLowerCase()));
+      } else if (selectedOption === 'Bebida') {
+        filtered = drinks.filter(item => item.nombre.toLowerCase().includes(value.toLowerCase()));
+      }
+      setFilteredResults(filtered);
     } else {
-      setFilteredResults([])
+      setFilteredResults([]);
     }
-  }
+  };
 
   // Función para seleccionar el item y cerrar los resultados de búsqueda
   const handleSelectItem = (item) => {
-    setSearchTerm(item.label) // Esto pondrá el nombre del plato o bebida en el search bar.
+    setSearchTerm(item.nombre) // Esto pondrá el nombre del plato o bebida en el search bar.
     setFilteredResults([]) // Esto limpiará los resultados de búsqueda, cerrando la lista.
-    // ... manejo de la queja
+
+    if (selectedOption === 'Empleado') {
+      setSelectedEmpleadoId(item.empleado_id);
+      setSelectedPlatoBebidaId(0);
+    } else if (selectedOption === 'Plato' || selectedOption === 'Bebida') {
+      setSelectedPlatoBebidaId(item.platobebida_id);
+      setSelectedEmpleadoId(0);
+    }
+
   }
 
   // Función para renderizar la barra de búsqueda según el RadioButton seleccionado
@@ -98,11 +197,11 @@ const QuejaProducto = () => {
       return (
         <div className="search__element">
           <label className="search-label-queja">
-            Buscar {selectedOption === 'empleado' ? 'empleado' : selectedOption}:
+            Buscar {selectedOption.toLowerCase()}:
           </label>
           <input
             type="text"
-            placeholder={`Buscar ${selectedOption}...`}
+            placeholder={`Buscar ${selectedOption.toLowerCase()}...`}
             value={searchTerm}
             onChange={handleSearchChange}
             className="search-input-queja"
@@ -115,15 +214,15 @@ const QuejaProducto = () => {
                   className="search-item-queja"
                   onClick={() => handleSelectItem(item)}
                 >
-                  {item.label}
+                  {item.nombre}
                 </div>
               ))}
             </div>
           )}
         </div>
-      )
+      );
     }
-  }
+  };
 
   return (
     <div className="quejaProducto">
@@ -153,6 +252,7 @@ const QuejaProducto = () => {
           name="table"
           id="table"
           placeholder="Introduce el NIT de la persona"
+          onValueChange={handleNITChange}
           isNumeric={true}
         />
 
@@ -167,22 +267,22 @@ const QuejaProducto = () => {
           <RadioButton
             label="Empleado"
             name="quejaType"
-            value="empleado"
-            checked={selectedOption === 'empleado'}
+            value="Empleado"
+            checked={selectedOption === 'Empleado'}
             onChange={handleRadioChange}
           />
           <RadioButton
             label="Plato"
             name="quejaType"
-            value="plato"
-            checked={selectedOption === 'plato'}
+            value="Plato"
+            checked={selectedOption === 'Plato'}
             onChange={handleRadioChange}
           />
           <RadioButton
             label="Bebida"
             name="quejaType"
-            value="bebida"
-            checked={selectedOption === 'bebida'}
+            value="Bebida"
+            checked={selectedOption === 'Bebida'}
             onChange={handleRadioChange}
           />
         </div>
@@ -192,12 +292,13 @@ const QuejaProducto = () => {
           type="text"
           name="table"
           id="table"
+          onValueChange={handleQuejaChange}
           placeholder="Introduce el motivo de la queja"
           isNumeric={false}
         />
         <div className="button__queja">
           <Link to={'/verfactura'}>
-            <Button text="Enviar queja" onClick={() => console.log('Ver pedido')} />
+            <Button text="Enviar queja" onClick={handleSubmitQueja} />
           </Link>
         </div>
       </form>
