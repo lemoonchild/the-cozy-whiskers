@@ -39,15 +39,13 @@ const VerFactura = () => {
 
         const data = await response.json();
 
-        await Promise.all([
-          setNitUsuario(data.data.nit),
-          setNombreUsuario(data.data.nombre),
-          setDireccion(data.data.direccion),
-          setNoFactura(data.data.factura_id),
-          setFechaEmision(new Date(data.data.fecha_emision).toLocaleDateString()),
-          setNumeroDePersonas(data.data.personas),
-        ]);
-        
+        setNitUsuario(data.data.nit);
+        setNombreUsuario(data.data.nombre);
+        setDireccion(data.data.direccion);
+        setNoFactura(data.data.factura_id);
+        setFechaEmision(new Date(data.data.fecha_emision).toLocaleDateString());
+        setNumeroDePersonas(data.data.personas);
+
         if (data.data.tarjeta && data.data.efectivo) {
           setTipoPago('Ambos');
         } else if (data.data.tarjeta) {
@@ -67,13 +65,13 @@ const VerFactura = () => {
             mesa_id_arg: MesaId,
           }),
         });
-  
+
         if (!totalResponse.ok) {
           throw new Error(`HTTP error! status: ${totalResponse.status}`);
         }
-  
+
         const totalData = await totalResponse.json();
-  
+
         // Update the state with the fetched total
         setTotalData(totalData.data[0].total_final);
 
