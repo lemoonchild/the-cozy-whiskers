@@ -6,96 +6,76 @@ import Popup from '../components/popUp'
 import Button from '../components/button'
 
 const VerPedidoMesero = () => {
-  //Colocar el nombre de empleado y rol según el usuario
-  const numeroMesa = 12
+  const API_BASE_URL = 'http://localhost:5001'
+  const numeroMesa = localStorage.getItem('numTable')
 
-  //Platos utilizados para las cartas
-  const [dishes, setDishes] = useState([
-    {
-      id: 1,
-      image: '//i.pinimg.com/564x/43/17/c3/4317c3a2ca1f923b43d6d03e98b87351.jpg',
-      time: '12:20 pm',
-      title: 'Bagel con huevo, jamón y queso',
-      size: 'Mediano',
-      quantity: 1,
-      note: 'Pan integral, jamón de pavo',
-    },
-    {
-      id: 2,
-      image: 'https://i.pinimg.com/564x/01/06/46/010646301747e2a765574b2415049621.jpg',
-      time: '12:20 pm',
-      title: 'Ensalada fresca de temporada',
-      size: 'Grande',
-      quantity: 2,
-      note: 'Aderezo aparte, sin nueces',
-    },
-    {
-      id: 3,
-      image: 'https://i.pinimg.com/564x/fa/1d/31/fa1d31242226ca5f2bf89c6e6c4a50a7.jpg',
-      time: '12:20 pm',
-      title: 'Sándwich de pollo grillado',
-      size: 'Mediano',
-      quantity: 1,
-      note: 'Sin cebolla, agregar pepinillos',
-    },
-    {
-      id: 4,
-      image: '//i.pinimg.com/564x/9e/e2/84/9ee2846b3085976e24d33655e43443f2.jpg',
-      time: '12:20 pm',
-      title: 'Jugo natural de naranja',
-      size: 'Grande',
-      quantity: 1,
-      note: 'Con hielo, sin azúcar',
-    },
-    {
-      id: 5,
-      image: '//i.pinimg.com/564x/43/17/c3/4317c3a2ca1f923b43d6d03e98b87351.jpg',
-      time: '12:20 pm',
-      title: 'Bagel con huevo, jamón y queso',
-      size: 'Mediano',
-      quantity: 1,
-      note: 'Pan integral, jamón de pavo',
-    },
-    {
-      id: 6,
-      image: 'https://i.pinimg.com/564x/01/06/46/010646301747e2a765574b2415049621.jpg',
-      time: '12:20 pm',
-      title: 'Ensalada fresca de temporada',
-      size: 'Grande',
-      quantity: 2,
-      note: 'Aderezo aparte, sin nueces',
-    },
-    {
-      id: 7,
-      image: 'https://i.pinimg.com/564x/fa/1d/31/fa1d31242226ca5f2bf89c6e6c4a50a7.jpg',
-      time: '12:20 pm',
-      title: 'Sándwich de pollo grillado',
-      size: 'Mediano',
-      quantity: 1,
-      note: 'Sin cebolla, agregar pepinillos',
-    },
-    {
-      id: 8,
-      image: '//i.pinimg.com/564x/9e/e2/84/9ee2846b3085976e24d33655e43443f2.jpg',
-      time: '12:20 pm',
-      title: 'Jugo natural de naranja',
-      size: 'Grande',
-      quantity: 1,
-      note: 'Con hielo, sin azúcar',
-    },
-  ])
+  const [dishes, setDishes] = useState([])
+
+  const fetchDishName = async (id) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/food-by-id`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      const data = await response.json()
+
+      return data.data[0].nombre
+    } catch (error) {
+      console.error('An error occurred while fetching the dish name.', error)
+    }
+  }
+
+  const fetchDishes = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/detalle-pedido`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          mesa_id: numeroMesa,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      const data = await response.json()
+
+      const dishesWithNames = await Promise.all(
+        data.data.map(async (dish) => {
+          const name = await fetchDishName(dish.platob_id)
+          return { ...dish, title: name }
+        })
+      )
+
+      setDishes(dishesWithNames)
+    } catch (error) {
+      console.error('An error occurred while fetching the data.', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchDishes() // Fetch dishes when the component mounts
+  }, [])
 
   //Actualizar la pagina cada 3 segundos
   useEffect(() => {
     const intervalId = setInterval(() => {
-      console.log('Esto se ejecuta cada 3 segundos')
 
-      // Aquí es donde se actualiza el estado o las acciones
-      //Ejemplo de llamar función para obtener nuevos datos y actualizar estado con datos:
-      // fetchNuevosDatos().then(nuevosDatos => {
-      //   setDatos(nuevosDatos);
-      // });
-    }, 3000) // Se ejecuta cada 3 segundos
+      fetchDishes() // Fetch dishes every 3 seconds
+    }, 5000) // Se ejecuta cada 3 segundos
 
     // Función de limpieza que React ejecutará cuando el componente se desmonte
     return () => clearInterval(intervalId)
@@ -154,16 +134,21 @@ const VerPedidoMesero = () => {
       </div>
       <div className="pedido-layout" ref={layoutRef}>
         <div className="cards-container">
-          {dishes.map((dish) => (
-            <Card
-              key={dish.id}
-              image={dish.image}
-              time={dish.time}
-              title={dish.title}
-              onPrepareClick={() => handlePrepareClick(dish)}
-              buttonText="Ver Detalle"
-            />
-          ))}
+          {dishes.map((dish) => {
+            const date = new Date(dish.fecha_ordenado)
+            const formattedTime = date.toLocaleTimeString('en-US')
+
+            return (
+              <Card
+                key={dish.detalle_id}
+                image={dish.imagenlink}
+                time={formattedTime}
+                title={dish.title}
+                onPrepareClick={() => handlePrepareClick(dish)}
+                buttonText="Ver Detalle"
+              />
+            )
+          })}
         </div>
       </div>
 
@@ -174,11 +159,11 @@ const VerPedidoMesero = () => {
       <Popup
         isOpen={isPopupOpen}
         closePopup={() => setPopupOpen(false)}
-        imageSrc={selectedDish?.image}
+        imageSrc={selectedDish?.imagenlink}
         title={`Preparando: ${selectedDish?.title}`}
-        size={selectedDish?.size}
-        quantity={selectedDish?.quantity}
-        note={selectedDish?.note}
+        size={selectedDish?.medidadescripcion}
+        quantity={selectedDish?.cantidad}
+        note={selectedDish?.nota}
         onRealizado={() => setPopupOpen(false)}
       ></Popup>
     </div>
