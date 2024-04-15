@@ -6,7 +6,7 @@ import Input from '../components/input'
 import Button from '../components/button'
 import SelectInput from '../components/selectInput'
 
-const API_BASE_URL = 'http://localhost:5001'
+const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
 
 const MesaCuentaAbierta = () => {
   const [empleadoNombre, setEmpleadoNombre] = useState('')

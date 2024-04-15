@@ -5,7 +5,7 @@ import Input from '../components/input';
 import SelectInput from '../components/selectInput';
 import './loginRegister.css';
 
-const API_BASE_URL = 'http://localhost:5001';
+const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
 
 const getCurrentDate = () => {
   const date = new Date();

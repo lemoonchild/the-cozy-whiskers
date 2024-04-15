@@ -6,7 +6,7 @@ import Input from '../components/input'
 import Button from '../components/button'
 import SelectInput from '../components/selectInput'
 
-const API_BASE_URL = 'http://localhost:5001'
+const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
 
 const MeseroMesa = () => {
   const navigate = useNavigate()
@@ -151,7 +151,7 @@ const MeseroMesa = () => {
           text="Abrir cuenta" //Opción de abrir cuenta
           onClick={ async() => {
             try {
-              const response = await fetch('http://localhost:5001/insert-new-cuenta', {
+              const response = await fetch('https://the-cozy-whiskers-api-vercel.vercel.app/insert-new-cuenta', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

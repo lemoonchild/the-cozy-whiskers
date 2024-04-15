@@ -17,7 +17,7 @@ const Cocinero = () => {
 
   useEffect(() => {
     const fetchRoleName = async () => {
-      const API_BASE_URL = 'http://localhost:5001';
+      const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
       const username = localStorage.getItem('userLocal');
       const password = localStorage.getItem('passwordLocal');
 
@@ -53,7 +53,7 @@ const Cocinero = () => {
     fetchRoleName();
   }, []);
 
-  const API_BASE_URL = 'http://localhost:5001'
+  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -184,7 +184,7 @@ const Barista = () => {
 
   useEffect(() => {
     const fetchRoleName = async () => {
-      const API_BASE_URL = 'http://localhost:5001';
+      const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
       const username = localStorage.getItem('userLocal');
       const password = localStorage.getItem('passwordLocal');
 
@@ -220,7 +220,7 @@ const Barista = () => {
     fetchRoleName();
   }, []);
 
-  const API_BASE_URL = 'http://localhost:5001'
+  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
 
   useEffect(() => {
     const fetchOrders = async () => {

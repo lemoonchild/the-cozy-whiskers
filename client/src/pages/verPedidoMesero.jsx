@@ -6,7 +6,7 @@ import Popup from '../components/popUp'
 import Button from '../components/button'
 
 const VerPedidoMesero = () => {
-  const API_BASE_URL = 'http://localhost:5001'
+  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
   const numeroMesa = localStorage.getItem('numTable')
 
   const [dishes, setDishes] = useState([])
