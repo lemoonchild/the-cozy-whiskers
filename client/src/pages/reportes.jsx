@@ -6,10 +6,46 @@ import Button from '../components/button'
 import PopupFecha from '../components/popUpfecha'
 
 const ReportesAdmin = () => {
-  //Colocar el nombre de empleado y rol según el usuario
-  const empleadoNombre = 'Nicolas Bethancourt'
-  const rolEmpleado = 'Administrador'
+  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
+  const [empleadoNombre, setEmpleadoNombre] = useState('')
+  const [rolEmpleado, setRolEmpleado] = useState('')
+  
+  useEffect(() => {
+    const fetchRoleName = async () => {
+      const username = localStorage.getItem('userLocal');
+      const password = localStorage.getItem('passwordLocal');
 
+      try {
+        const response = await fetch(`${API_BASE_URL}/get-role-name`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          setEmpleadoNombre(data.data.nombre);
+          setRolEmpleado(data.data.rol);
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchRoleName();
+  }, []);
   // Reloj
   const [currentTime, setCurrentTime] = useState(new Date())
 
@@ -26,8 +62,14 @@ const ReportesAdmin = () => {
   const [fechaInicio, setFechaInicio] = useState('')
   const [fechaFin, setFechaFin] = useState('')
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (fetch) => {
+    localStorage.setItem('reportAPI', fetch)
     setIsPopupOpen(true) // Abre el pop-up
+  }
+
+  const handleDateSubmit = () => {
+    localStorage.setItem('fechaInicio', fechaInicio)
+    localStorage.setItem('fechaFin', fechaFin)
   }
 
   return (
@@ -48,23 +90,23 @@ const ReportesAdmin = () => {
         <p className="current-time">{currentTime.toLocaleTimeString()}</p>
       </div>
 
-      <div className="reportes__button-container">
+      <div className="reportes__button-container" > 
         <Button
           text="Platos más pedidos"
           className="reportes__button"
-          onClick={() => handleButtonClick()}
+          onClick={() => handleButtonClick('report-most-ordered-dishes')} //POST: /report-most-ordered-dishes
         />
 
         <Button
-          text="Horas pico de pedidos"
+          text="Hora pico de pedidos"
           className="reportes__button"
-          onClick={() => handleButtonClick()}
+          onClick={() => handleButtonClick('report-most-orders-time-slot')}
         />
 
         <Button
           text="Promedio de tiempo de estadía de clientes"
           className="reportes__button"
-          onClick={() => handleButtonClick()}
+          onClick={() => handleButtonClick('report-average-dining-time')}
         />
       </div>
 
@@ -72,18 +114,19 @@ const ReportesAdmin = () => {
         <Button
           text="Reporte de quejas por plato y bebida"
           className="reportes__button"
-          onClick={() => handleButtonClick()}
+          onClick={() => handleButtonClick('report-complaints-by-dish')}
         />
 
         <Button
           text="Reporte de quejas por persona"
           className="reportes__button"
-          onClick={() => handleButtonClick()}
+          onClick={() => handleButtonClick('report-complaints-by-person')}
         />
-
+        
         <Button //ESTE ES EL DE LOS 6 MESES
           text="Reporte de eficiencia de meseros"
           className="reportes__button"
+          onClick={localStorage.setItem('reportAPI', 'report-waiter-efficiency-6-months')}
         />
       </div>
 
@@ -103,7 +146,7 @@ const ReportesAdmin = () => {
             <input type="date" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} />
           </div>
           <Link to="/verReporte">
-            <Button text="Generar Reporte" className="popup-button-fecha" />
+            <Button text="Generar Reporte" className="popup-button-fecha" onClick={handleDateSubmit}/>
           </Link>
         </div>
       </PopupFecha>
