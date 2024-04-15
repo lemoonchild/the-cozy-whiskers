@@ -7,12 +7,55 @@ import Button from '../components/button'
 import Slider from '../components/slider'
 
 const EncuestaSatisfaccion = () => {
-  //Colocar el nombre de empleado y rol según el usuario
-  const empleadoNombre = 'Nicolas Bethancourt'
-  const rolEmpleado = 'Mesero'
 
-  //Numero de cuenta a la que se le aplica la encuesta de satisfaccion
-  const numeroCuenta = 12333
+  const API_BASE_URL = 'http://localhost:5001'
+  //Colocar el nombre de empleado y rol según el usuario
+  const [empleadoNombre, setEmpleadoNombre] = useState('')
+  const [rolEmpleado, setRolEmpleado] = useState('')
+  const numeroCuenta = localStorage.getItem('numTable')
+  const NITQueja = localStorage.getItem('NIT')
+  const queja = localStorage.getItem('queja')
+  const clasificacion = localStorage.getItem('clasificacion')
+  const selectedEmpleadoId = localStorage.getItem('empleado_id')
+  const selectedPlatoBebidaId = localStorage.getItem('platobebida_id')
+
+
+  useEffect(() => {
+    const fetchRoleName = async () => {
+      const username = localStorage.getItem('userLocal');
+      const password = localStorage.getItem('passwordLocal');
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/get-role-name`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          setEmpleadoNombre(data.data.nombre);
+          setRolEmpleado(data.data.rol);
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchRoleName();
+  }, []);
 
   //Sliders de preguntas
   const [sliderValue1, setSliderValue1] = useState(3) //default de 3
@@ -27,9 +70,38 @@ const EncuestaSatisfaccion = () => {
   }
 
   //Envio de la encuesta con boton
-  const handleSubmit = () => {
-    // Aquí enviar valores al backend
-    console.log('Valores de la encuesta:', sliderValue1, sliderValue2)
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/submit-queja-encuesta`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nit_arg: NITQueja,
+          empleado_id_arg: selectedEmpleadoId,
+          platoBebida_id_arg: selectedPlatoBebidaId,
+          motivo_arg: queja,
+          clasificacion_arg: clasificacion,
+          amabilidad_arg: sliderValue1,
+          exactitud_arg: sliderValue2,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.status === 'success') {
+        alert(data.message);
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
   }
 
   // Reloj
@@ -70,6 +142,7 @@ const EncuestaSatisfaccion = () => {
           type="text"
           name="table"
           id="table"
+          value={NITQueja}
           placeholder="Introduce el NIT"
           isNumeric={true}
         />
