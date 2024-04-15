@@ -1,52 +1,135 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../components/button'
 import './factura.css'
 
 const VerFactura = () => {
+  const API_BASE_URL = 'http://localhost:5001'
   //Información que viene de la pantalla de factura
-  const nitUsuario = 656230 - 2
-  const nombreUsuario = 'Alberto Castro'
-  const direccion = 'Ciudad'
+  const [nombreUsuario, setNombreUsuario] = useState("");
+  const [totalData, setTotalData] = useState("");
+  const [nitUsuario, setNitUsuario] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [noFactura, setNoFactura] = useState("");
+  const [fechaEmision, setFechaEmision] = useState(new Date().toLocaleDateString());
+  const [tipoPago, setTipoPago] = useState("");
+  const [numeroDePersonas, setNumeroDePersonas] = useState(3);
+  const MesaId = localStorage.getItem('numTable')
+  const dividedBill = localStorage.getItem('dividedBill')
 
-  //Información sobre el no. de factura, fecha de emisión y tipo de pago (que viene de pantalla factura)
-  const noFactura = 12
-  const fechaEmisión = '11/03/2024'
-  const tipoPago = 'Efectivo'
+  const [dividedTotal, setDividedTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  //Numero de personas a dividir la cuenta
-  const numeroDePersonas = 3
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/last-invoice`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            mesa_id: MesaId,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        await Promise.all([
+          setNitUsuario(data.data.nit),
+          setNombreUsuario(data.data.nombre),
+          setDireccion(data.data.direccion),
+          setNoFactura(data.data.factura_id),
+          setFechaEmision(new Date(data.data.fecha_emision).toLocaleDateString()),
+          setNumeroDePersonas(data.data.personas),
+        ]);
+        
+        if (data.data.tarjeta && data.data.efectivo) {
+          setTipoPago('Ambos');
+        } else if (data.data.tarjeta) {
+          setTipoPago('Tarjeta');
+        } else if (data.data.efectivo) {
+          setTipoPago('Efectivo');
+        } else {
+          setTipoPago('No especificado');
+        }
+
+        const totalResponse = await fetch(`${API_BASE_URL}/fetch-total-final-order`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            mesa_id_arg: MesaId,
+          }),
+        });
+  
+        if (!totalResponse.ok) {
+          throw new Error(`HTTP error! status: ${totalResponse.status}`);
+        }
+  
+        const totalData = await totalResponse.json();
+  
+        // Update the state with the fetched total
+        setTotalData(totalData.data[0].total_final);
+
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   //Arreglo de productos de prueba para factura
-  const productos = [
-    { cantidad: 1, nombre: 'Producto A', precio: 10.99 },
-    { cantidad: 2, nombre: 'Producto B', precio: 5.5 },
-    { cantidad: 3, nombre: 'Producto C', precio: 11.99 },
-    { cantidad: 5, nombre: 'Producto D', precio: 6.0 },
-    { cantidad: 10, nombre: 'Producto E', precio: 12.98 },
-    { cantidad: 12, nombre: 'Ensalada de Fideos Fríos Coreanos (Naengmyeon) ', precio: 7.5 },
-  ]
+  const [productos, setProductos] = useState([]);
 
-  // Función para calcular el total
-  const calcularTotal = () => {
-    return productos
-      .reduce((total, producto) => total + producto.cantidad * producto.precio, 0)
-      .toFixed(2)
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/fetch-order-checkout`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            mesa_id_arg: MesaId,
+          }),
+        });
 
-  // Función para calcular el total devidido
-  const calcularTotalDividido = (personas) => {
-    if (personas <= 0) {
-      return 'Error: El número de personas debe ser mayor que 0'
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        const fetchedProductos = data.data.map((item) => ({
+          cantidad: item.cantidad,
+          nombre: item.platobebidanombre,
+          precio: `${item.precio_unitario} (Subtotal: ${item.subtotal})`,
+        }));
+
+        // Store the fetched data in the state
+        setProductos(fetchedProductos);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (dividedBill === 'true') {
+      setDividedTotal((totalData / numeroDePersonas).toFixed(2));
+    } else {
+      setDividedTotal(totalData);
     }
-
-    const total = productos.reduce(
-      (total, producto) => total + producto.cantidad * producto.precio,
-      0,
-    )
-
-    return (total / personas).toFixed(2)
-  }
+  }, [totalData, numeroDePersonas, dividedBill]);
 
   // Componente Producto
   function Producto({ cantidad, nombre, precio }) {
@@ -54,7 +137,7 @@ const VerFactura = () => {
       <div className="productos__factura">
         <span>{cantidad}</span>
         <span>{nombre}</span>
-        <span>${precio.toFixed(2)}</span>
+        <span>${precio}</span>
       </div>
     )
   }
@@ -95,7 +178,7 @@ const VerFactura = () => {
           <span>No. Factura:</span> {noFactura}
         </p>
         <p className="informacion__factura">
-          <span>Fecha de emisión:</span> {fechaEmisión}
+          <span>Fecha de emisión:</span> {fechaEmision}
         </p>
         <p className="informacion__factura">
           <span>Tipo de pago:</span> {tipoPago}
@@ -127,11 +210,11 @@ const VerFactura = () => {
         ))}
       </div>
       <div className="total__factura">
-        <span>Total: ${calcularTotal()}</span>
+        <span>Total: ${totalData}</span>
       </div>
 
       <div className="total_cuenta_dividida">
-        <span>Cantidad a pagar por cada persona: ${calcularTotalDividido(numeroDePersonas)}</span>
+        <span>Cantidad a pagar por cada persona: ${dividedTotal}</span>
       </div>
 
       <div className="footer_queja">
