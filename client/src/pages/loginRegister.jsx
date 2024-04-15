@@ -116,9 +116,9 @@ const Register = () => {
   };
 
   const roles = [
-    { value: 'mesero', label: 'Mesero' },
-    { value: 'cocinero', label: 'Cocinero' },
-    { value: 'barista', label: 'Barista' },
+    { value: 'Mesero', label: 'Mesero' },
+    { value: 'Cocinero', label: 'Cocinero' },
+    { value: 'Barista', label: 'Barista' },
   ]
 
   return (
