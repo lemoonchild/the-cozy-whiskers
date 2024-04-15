@@ -8,10 +8,11 @@ import Slider from '../components/slider'
 
 const EncuestaSatisfaccion = () => {
 
-  const API_BASE_URL = 'http://localhost:5001'
+  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
   //Colocar el nombre de empleado y rol según el usuario
   const [empleadoNombre, setEmpleadoNombre] = useState('')
   const [rolEmpleado, setRolEmpleado] = useState('')
+  const [empleadoIDSat, setEmpleadoIDSat] = useState('')
   const numeroCuenta = localStorage.getItem('numTable')
   const NITQueja = localStorage.getItem('NIT')
   const queja = localStorage.getItem('queja')
@@ -46,6 +47,7 @@ const EncuestaSatisfaccion = () => {
         if (data.status === 'success') {
           setEmpleadoNombre(data.data.nombre);
           setRolEmpleado(data.data.rol);
+          setEmpleadoIDSat(data.data.empleado_id);
         } else {
           alert(data.message);
         }
@@ -71,6 +73,7 @@ const EncuestaSatisfaccion = () => {
 
   //Envio de la encuesta con boton
   const handleSubmit = async () => {
+    console.log(empleadoIDSat)
     try {
       const response = await fetch(`${API_BASE_URL}/submit-queja-encuesta`, {
         method: 'POST',
@@ -80,6 +83,7 @@ const EncuestaSatisfaccion = () => {
         body: JSON.stringify({
           nit_arg: NITQueja,
           empleado_id_arg: selectedEmpleadoId,
+          empleado_id_arg_sat: empleadoIDSat,
           platoBebida_id_arg: selectedPlatoBebidaId,
           motivo_arg: queja,
           clasificacion_arg: clasificacion,
