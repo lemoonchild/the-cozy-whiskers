@@ -169,6 +169,7 @@ const MeseroMesa = () => {
               const data = await response.json();
 
               if (data.status === 'success') {
+                localStorage.setItem('numTable', selectedTable);
                 navigate('/ordenMesero');
               } else {
                 alert(data.message);

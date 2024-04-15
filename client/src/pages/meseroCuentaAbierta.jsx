@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import './meseroCuentaAbierta.css'
 import Input from '../components/input'
@@ -11,6 +11,8 @@ const API_BASE_URL = 'http://localhost:5001'
 const MesaCuentaAbierta = () => {
   const [empleadoNombre, setEmpleadoNombre] = useState('')
   const [rolEmpleado, setRolEmpleado] = useState('')
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchRoleName = async () => {
@@ -68,6 +70,7 @@ const MesaCuentaAbierta = () => {
   const handleSelectedTable = (value) => {
     setSelectedTable(value);
   };
+  
   // Opciones de mesas disponibles para el select
   useEffect(() => {
     const fetchAvailableTables = async () => {
@@ -126,17 +129,22 @@ const MesaCuentaAbierta = () => {
           name="table"
           id="table-select"
           options={occupiedTablesOptions}
-          onChange={(e) => setSelectedTable(e.target.value)}
+          onValueChange={handleSelectedTable}
           size="4"
         />
 
         <div className="mesa__button__container">
-          <Link to={'/ordenMesero'}>
-            <Button
-              text="Crear nuevo pedido" //Opción de abrir cuenta
-              onClick={() => console.log('Cuenta abierta exitosamente')}
-            />
-          </Link>
+          <Button
+            text="Crear nuevo pedido" //Opción de abrir cuenta
+            onClick={() => {
+              if (selectedTable) {
+                localStorage.setItem('numTable', selectedTable);
+                navigate('/ordenMesero');
+              } else {
+                alert('Please select a table.');
+              }
+            }}
+          />
         </div>
       </form>
 
