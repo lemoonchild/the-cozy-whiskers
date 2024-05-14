@@ -1,19 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './cocineroBarista.css'
-import Card from '../components/card'
-import Popup from '../components/popUp'
-import Button from '../components/button'
-
+import './cocineroBarista.css';
+import Card from '../components/card';
+import Popup from '../components/popUp';
+import Button from '../components/button';
 
 const Cocinero = () => {
   const navigate = useNavigate();
-  const [empleadoNombre, setEmpleadoNombre] = useState('')
-  const [rolEmpleado, setRolEmpleado] = useState('')
+  const [empleadoNombre, setEmpleadoNombre] = useState('');
+  const [rolEmpleado, setRolEmpleado] = useState('');
   const [completedDishes, setCompletedDishes] = useState([]);
-  const [dishes, setDishes] = useState([])
-  const [isPopupOpen, setPopupOpen] = useState(false)
-  const [selectedDish, setSelectedDish] = useState(null)
+  const [dishes, setDishes] = useState([]);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [selectedDish, setSelectedDish] = useState(null);
 
   useEffect(() => {
     const fetchRoleName = async () => {
@@ -53,7 +52,7 @@ const Cocinero = () => {
     fetchRoleName();
   }, []);
 
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
+  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -64,7 +63,9 @@ const Cocinero = () => {
       });
       const data = await response.json();
       if (data.data) {
-        const filteredDishes = data.data.filter(dish => !completedDishes.includes(dish.detalle_id));
+        const filteredDishes = data.data.filter(
+          (dish) => !completedDishes.includes(dish.detalle_id),
+        );
         setDishes(filteredDishes);
       }
     };
@@ -75,7 +76,7 @@ const Cocinero = () => {
   }, [completedDishes]);
 
   // Reloj
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -86,23 +87,23 @@ const Cocinero = () => {
   }, []);
 
   //Cartas
-  const layoutRef = useRef()
+  const layoutRef = useRef();
 
   useEffect(() => {
     // Cada vez que se actualiza la lista de platos, se desplaza al final
     if (layoutRef.current) {
       // Desplaza al final del contenedor
-      layoutRef.current.scrollLeft = layoutRef.current.scrollWidth
+      layoutRef.current.scrollLeft = layoutRef.current.scrollWidth;
     }
-  }, [dishes.length])
+  }, [dishes.length]);
 
   const handlePrepareClick = (dish) => {
-    setSelectedDish(dish)
-    setPopupOpen(true)
-  }
+    setSelectedDish(dish);
+    setPopupOpen(true);
+  };
 
   const removeDish = (dishId) => {
-    setCompletedDishes(prev => [...prev, dishId]);
+    setCompletedDishes((prev) => [...prev, dishId]);
     setPopupOpen(false);
   };
 
@@ -119,9 +120,11 @@ const Cocinero = () => {
           </p>
         </div>
         <div className="button__satisfaccion_cocinero">
-          <Button text="Cerrar Sesión" onClick={() => {
-            navigate('/')
-          }}
+          <Button
+            text="Cerrar Sesión"
+            onClick={() => {
+              navigate('/');
+            }}
           />
         </div>
       </div>
@@ -133,8 +136,8 @@ const Cocinero = () => {
         {rolEmpleado === 'Cocinero' ? (
           <>
             {dishes.map((dish) => {
-              const date = new Date(dish.fecha_ordenado)
-              const formattedTime = date.toLocaleTimeString('en-US')
+              const date = new Date(dish.fecha_ordenado);
+              const formattedTime = date.toLocaleTimeString('en-US');
 
               return (
                 <Card
@@ -145,13 +148,11 @@ const Cocinero = () => {
                   onPrepareClick={() => handlePrepareClick(dish)}
                   buttonText="Ver Detalle"
                 />
-              )
+              );
             })}
           </>
         ) : (
-          <div className="unauthorized">
-            Usuario con rol no autorizado
-          </div>
+          <div className="unauthorized">Usuario con rol no autorizado</div>
         )}
       </div>
 
@@ -170,17 +171,17 @@ const Cocinero = () => {
         onRealizado={() => removeDish(selectedDish?.detalle_id)}
       ></Popup>
     </div>
-  )
-}
+  );
+};
 
 const Barista = () => {
   const navigate = useNavigate();
-  const [empleadoNombre, setEmpleadoNombre] = useState('')
-  const [rolEmpleado, setRolEmpleado] = useState('')
+  const [empleadoNombre, setEmpleadoNombre] = useState('');
+  const [rolEmpleado, setRolEmpleado] = useState('');
   const [completedDishes, setCompletedDishes] = useState([]);
-  const [dishes, setDishes] = useState([])
-  const [isPopupOpen, setPopupOpen] = useState(false)
-  const [selectedDish, setSelectedDish] = useState(null)
+  const [dishes, setDishes] = useState([]);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [selectedDish, setSelectedDish] = useState(null);
 
   useEffect(() => {
     const fetchRoleName = async () => {
@@ -220,7 +221,7 @@ const Barista = () => {
     fetchRoleName();
   }, []);
 
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
+  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -231,7 +232,9 @@ const Barista = () => {
       });
       const data = await response.json();
       if (data.data) {
-        const filteredDishes = data.data.filter(dish => !completedDishes.includes(dish.detalle_id));
+        const filteredDishes = data.data.filter(
+          (dish) => !completedDishes.includes(dish.detalle_id),
+        );
         setDishes(filteredDishes);
       }
     };
@@ -242,7 +245,7 @@ const Barista = () => {
   }, [completedDishes]);
 
   // Reloj
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -253,23 +256,23 @@ const Barista = () => {
   }, []);
 
   //Cartas
-  const layoutRef = useRef()
+  const layoutRef = useRef();
 
   useEffect(() => {
     // Cada vez que se actualiza la lista de platos, se desplaza al final
     if (layoutRef.current) {
       // Desplaza al final del contenedor
-      layoutRef.current.scrollLeft = layoutRef.current.scrollWidth
+      layoutRef.current.scrollLeft = layoutRef.current.scrollWidth;
     }
-  }, [dishes.length])
+  }, [dishes.length]);
 
   const handlePrepareClick = (dish) => {
-    setSelectedDish(dish)
-    setPopupOpen(true)
-  }
+    setSelectedDish(dish);
+    setPopupOpen(true);
+  };
 
   const removeDish = (dishId) => {
-    setCompletedDishes(prev => [...prev, dishId]);
+    setCompletedDishes((prev) => [...prev, dishId]);
     setPopupOpen(false);
   };
 
@@ -286,9 +289,11 @@ const Barista = () => {
           </p>
         </div>
         <div className="button__satisfaccion_cocinero">
-          <Button text="Cerrar Sesión" onClick={() => {
-            navigate('/')
-          }}
+          <Button
+            text="Cerrar Sesión"
+            onClick={() => {
+              navigate('/');
+            }}
           />
         </div>
       </div>
@@ -300,8 +305,8 @@ const Barista = () => {
         {rolEmpleado === 'Barista' ? (
           <>
             {dishes.map((dish) => {
-              const date = new Date(dish.fecha_ordenado)
-              const formattedTime = date.toLocaleTimeString('en-US')
+              const date = new Date(dish.fecha_ordenado);
+              const formattedTime = date.toLocaleTimeString('en-US');
 
               return (
                 <Card
@@ -312,13 +317,11 @@ const Barista = () => {
                   onPrepareClick={() => handlePrepareClick(dish)}
                   buttonText="Ver Detalle"
                 />
-              )
+              );
             })}
           </>
         ) : (
-          <div className="unauthorized">
-            Usuario con rol no autorizado
-          </div>
+          <div className="unauthorized">Usuario con rol no autorizado</div>
         )}
       </div>
 
@@ -337,8 +340,8 @@ const Barista = () => {
         onRealizado={() => removeDish(selectedDish?.detalle_id)}
       ></Popup>
     </div>
-  )
-}
+  );
+};
 
 //Cambia entre las funciones según si es cocinero o barista
 const CocineroBarista = ({ action }) => {
@@ -347,7 +350,7 @@ const CocineroBarista = ({ action }) => {
       {action === 'cocinero' && <Cocinero />}
       {action === 'barista' && <Barista />}
     </div>
-  )
-}
+  );
+};
 
-export default CocineroBarista
+export default CocineroBarista;

@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import SelectInput from './selectInput'
-import './popUpEditable.css'
+import React, { useState } from 'react';
+import SelectInput from './selectInput';
+import './popUpEditable.css';
 
 const PopupEditable = ({ isOpen, closePopup, dishName, platoID }) => {
-  const [size, setSize] = useState('')
-  const [quantity, setQuantity] = useState(1)
-  const [note, setNote] = useState('')
-  const API_BASE_URL = 'http://localhost:5001'
+  const [size, setSize] = useState('');
+  const [quantity, setQuantity] = useState(1);
+  const [note, setNote] = useState('');
+  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
 
   const sizeOptions = [
     { value: 'Pequeño', label: 'Pequeño' },
     { value: 'Mediano', label: 'Mediano' },
     { value: 'Grande', label: 'Grande' },
-  ]
+  ];
 
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
   const handleSubmit = async () => {
     try {
@@ -28,16 +28,16 @@ const PopupEditable = ({ isOpen, closePopup, dishName, platoID }) => {
           tamaño: size,
         }),
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       const data = await response.json();
-  
+
       const medidac_id = data.data[0]?.medidac_id || null;
       const mesa_id = localStorage.getItem('numTable');
-      
+
       console.log({
         mesa_id_arg: mesa_id,
         platoB_id_arg: platoID,
@@ -60,15 +60,15 @@ const PopupEditable = ({ isOpen, closePopup, dishName, platoID }) => {
           nota_arg: note,
         }),
       });
-  
+
       if (!orderResponse.ok) {
         throw new Error(`HTTP error! status: ${orderResponse.status}`);
       }
-  
+
       const orderData = await orderResponse.json();
-  
+
       console.log(orderData);
-  
+
       closePopup(); // Close the popup after sending the data
     } catch (error) {
       console.error('An error occurred while fetching the data.', error);
@@ -76,17 +76,16 @@ const PopupEditable = ({ isOpen, closePopup, dishName, platoID }) => {
   };
 
   const handleSelectedSize = (value) => {
-    setSize(value)
-  }
+    setSize(value);
+  };
 
   const handleQuantity = (value) => {
-    setQuantity(value)
-  }
+    setQuantity(value);
+  };
 
   const handleNote = (value) => {
-    setNote(value)
-  }
-
+    setNote(value);
+  };
 
   return (
     <div className="popup-overlay">
@@ -118,14 +117,19 @@ const PopupEditable = ({ isOpen, closePopup, dishName, platoID }) => {
         </div>
         <div className="input-group">
           <label htmlFor="note">Nota:</label>
-          <textarea id="note" name="note" value={note} onChange={(e) => handleNote(e.target.value)} />
+          <textarea
+            id="note"
+            name="note"
+            value={note}
+            onChange={(e) => handleNote(e.target.value)}
+          />
         </div>
         <button className="submit-button" onClick={handleSubmit}>
           PEDIR
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PopupEditable
+export default PopupEditable;
