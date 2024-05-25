@@ -5,7 +5,7 @@ import Input from '../components/input';
 import SelectInput from '../components/selectInput';
 import './loginRegister.css';
 
-const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
 
 const getCurrentDate = () => {
   const date = new Date();
@@ -199,10 +199,10 @@ const Register = () => {
 
 const LoginRegistro = ({ action }) => {
   return (
-    <div>
+    <>
       {action === 'login' && <Login />}
       {action === 'register' && <Register />}
-    </div>
+    </>
   );
 };
 

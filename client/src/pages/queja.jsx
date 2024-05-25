@@ -8,7 +8,7 @@ import Slider from '../components/slider';
 import RadioButton from '../components/radioButton';
 
 const QuejaProducto = () => {
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+  const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
   //Colocar el nombre de empleado y rol según el usuario
   const [empleadoNombre, setEmpleadoNombre] = useState('');
   const [rolEmpleado, setRolEmpleado] = useState('');

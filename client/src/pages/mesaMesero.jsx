@@ -6,7 +6,7 @@ import Input from '../components/input';
 import Button from '../components/button';
 import SelectInput from '../components/selectInput';
 
-const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
 
 const MeseroMesa = () => {
   const navigate = useNavigate();
@@ -151,19 +151,16 @@ const MeseroMesa = () => {
           text="Abrir cuenta" //Opción de abrir cuenta
           onClick={async () => {
             try {
-              const response = await fetch(
-                'https://the-cozy-whiskers-api-vercel.vercel.app/insert-new-cuenta',
-                {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    mesa_id_arg: selectedTable,
-                    personas_arg: numPeople,
-                  }),
+              const response = await fetch(`${API_BASE_URL}/insert-new-cuenta`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
                 },
-              );
+                body: JSON.stringify({
+                  mesa_id_arg: selectedTable,
+                  personas_arg: numPeople,
+                }),
+              });
 
               if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

@@ -11,7 +11,7 @@ const InformacionFactura = () => {
   //Colocar el nombre de empleado y rol según el usuario
   const [empleadoNombre, setEmpleadoNombre] = useState('');
   const [rolEmpleado, setRolEmpleado] = useState('');
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+  const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
 
   const MesaId = localStorage.getItem('numTable');
 

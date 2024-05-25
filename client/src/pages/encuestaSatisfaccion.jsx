@@ -7,7 +7,7 @@ import Button from '../components/button';
 import Slider from '../components/slider';
 
 const EncuestaSatisfaccion = () => {
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+  const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
   //Colocar el nombre de empleado y rol según el usuario
   const [empleadoNombre, setEmpleadoNombre] = useState('');
   const [rolEmpleado, setRolEmpleado] = useState('');

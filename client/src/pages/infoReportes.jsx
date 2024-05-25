@@ -12,7 +12,7 @@ const VerReportes = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app/';
+  const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app/';
 
   useEffect(() => {
     const fetchData = async () => {

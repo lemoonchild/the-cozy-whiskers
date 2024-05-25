@@ -8,7 +8,7 @@ import PopupEditable from '../components/popUpEditable';
 
 const OrdenMesero = () => {
   const numeroMesa = localStorage.getItem('numTable');
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+  const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
 
   // Reloj
   const [currentTime, setCurrentTime] = useState(new Date());

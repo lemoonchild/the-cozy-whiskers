@@ -6,7 +6,7 @@ import Button from '../components/button';
 import PopupFecha from '../components/popUpfecha';
 
 const ReportesAdmin = () => {
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+  const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
   const [empleadoNombre, setEmpleadoNombre] = useState('');
   const [rolEmpleado, setRolEmpleado] = useState('');
 

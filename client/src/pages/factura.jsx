@@ -4,7 +4,7 @@ import Button from '../components/button';
 import './factura.css';
 
 const VerFactura = () => {
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+  const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
   //Información que viene de la pantalla de factura
   const [nombreUsuario, setNombreUsuario] = useState('');
   const [totalData, setTotalData] = useState('');
