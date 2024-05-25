@@ -149,7 +149,7 @@ const VerFactura = () => {
           <button className="close-button">X</button>
         </Link>
       </div>
-      <img src="../../public/resources/mainlogo.png" alt="Logo" className="main__logo__factura" />
+      <img src="/resources/mainlogo.png" alt="Logo" className="main__logo__factura" />
       <div className="info__empresa">
         <p>The Cozy Whiskers S.A</p>
         <p>Nit: 456778-2</p>

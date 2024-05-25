@@ -97,7 +97,7 @@ const VerReportes = () => {
           <button className="close-button">X</button>
         </Link>
       </div>
-      <img src="../../public/resources/mainlogo.png" alt="Logo" className="main__logo__reporte" />
+      <img src="/resources/mainlogo.png" alt="Logo" className="main__logo__reporte" />
       <div className="info__empresa__reporte">
         <p>The Cozy Whiskers S.A</p>
         <p>Nit: 456778-2</p>

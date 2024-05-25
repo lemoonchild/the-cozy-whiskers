@@ -85,7 +85,7 @@ const OrdenMesero = () => {
   return (
     <div className="ordenMesero">
       <div className="header">
-        <img src="../../public/resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <Link to={'/informacionFactura'}>
             <Button

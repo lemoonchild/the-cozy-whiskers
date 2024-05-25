@@ -108,7 +108,7 @@ const MesaCuentaAbierta = () => {
   return (
     <div className="mesaMesero__abierta">
       <div className="header">
-        <img src="../../public/resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <p className="name__empleado">
             <span>Empleado:</span> {empleadoNombre}

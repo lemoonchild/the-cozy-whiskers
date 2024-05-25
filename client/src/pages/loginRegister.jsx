@@ -65,8 +65,8 @@ const Login = () => {
 
   return (
     <div className="login">
-      <img src="../../public/resources/catlogo.png" alt="Title" className="cat__logo" />
-      <img src="../../public/resources/coffee.png" alt="Background" className="login__background" />
+      <img src="/resources/catlogo.png" alt="Title" className="cat__logo" />
+      <img src="/resources/coffee.png" alt="Background" className="login__background" />
       <div className="login__box">
         <h1 className="title__login">Iniciar Sesión</h1>
         <p className="title__description">¡Hola de nuevo!</p>
@@ -123,8 +123,8 @@ const Register = () => {
 
   return (
     <div className="login">
-      <img src="../../public/resources/catlogo.png" alt="Title" className="cat__logo" />
-      <img src="../../public/resources/coffee.png" alt="Background" className="login__background" />
+      <img src="/resources/catlogo.png" alt="Title" className="cat__logo" />
+      <img src="/resources/coffee.png" alt="Background" className="login__background" />
       <div className="login__box">
         <h1 className="title__login">Registrase</h1>
         <p className="title__description">¡Un gusto!</p>
