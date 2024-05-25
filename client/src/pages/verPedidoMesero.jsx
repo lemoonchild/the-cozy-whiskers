@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import './verPedidoMesero.css'
-import Card from '../components/card'
-import Popup from '../components/popUp'
-import Button from '../components/button'
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import './verPedidoMesero.css';
+import Card from '../components/card';
+import Popup from '../components/popUp';
+import Button from '../components/button';
 
 const VerPedidoMesero = () => {
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
-  const numeroMesa = localStorage.getItem('numTable')
+  const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
+  const numeroMesa = localStorage.getItem('numTable');
 
-  const [dishes, setDishes] = useState([])
+  const [dishes, setDishes] = useState([]);
 
   const fetchDishName = async (id) => {
     try {
@@ -21,19 +21,19 @@ const VerPedidoMesero = () => {
         body: JSON.stringify({
           id: id,
         }),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json()
+      const data = await response.json();
 
-      return data.data[0].nombre
+      return data.data[0].nombre;
     } catch (error) {
-      console.error('An error occurred while fetching the dish name.', error)
+      console.error('An error occurred while fetching the dish name.', error);
     }
-  }
+  };
 
   const fetchDishes = async () => {
     try {
@@ -45,78 +45,77 @@ const VerPedidoMesero = () => {
         body: JSON.stringify({
           mesa_id: numeroMesa,
         }),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json()
+      const data = await response.json();
 
       const dishesWithNames = await Promise.all(
         data.data.map(async (dish) => {
-          const name = await fetchDishName(dish.platob_id)
-          return { ...dish, title: name }
-        })
-      )
+          const name = await fetchDishName(dish.platob_id);
+          return { ...dish, title: name };
+        }),
+      );
 
-      setDishes(dishesWithNames)
+      setDishes(dishesWithNames);
     } catch (error) {
-      console.error('An error occurred while fetching the data.', error)
+      console.error('An error occurred while fetching the data.', error);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchDishes() // Fetch dishes when the component mounts
-  }, [])
+    fetchDishes(); // Fetch dishes when the component mounts
+  }, []);
 
   //Actualizar la pagina cada 3 segundos
   useEffect(() => {
     const intervalId = setInterval(() => {
-
-      fetchDishes() // Fetch dishes every 3 seconds
-    }, 5000) // Se ejecuta cada 3 segundos
+      fetchDishes(); // Fetch dishes every 3 seconds
+    }, 5000); // Se ejecuta cada 3 segundos
 
     // Función de limpieza que React ejecutará cuando el componente se desmonte
-    return () => clearInterval(intervalId)
-  }, []) // Las dependencias vacías indican que solo se ejecuta al montar y desmontar
+    return () => clearInterval(intervalId);
+  }, []); // Las dependencias vacías indican que solo se ejecuta al montar y desmontar
 
   // Reloj
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
+      setCurrentTime(new Date());
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   //Cartas
 
-  const layoutRef = useRef()
+  const layoutRef = useRef();
 
   useEffect(() => {
     // Cada vez que se actualiza la lista de platos, se desplaza al final
     if (layoutRef.current) {
       // Desplaza al final del contenedor
-      layoutRef.current.scrollLeft = layoutRef.current.scrollWidth
+      layoutRef.current.scrollLeft = layoutRef.current.scrollWidth;
     }
-  }, [dishes.length])
+  }, [dishes.length]);
 
   //PopUp de información de la carta
-  const [isPopupOpen, setPopupOpen] = useState(false)
-  const [selectedDish, setSelectedDish] = useState(null)
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [selectedDish, setSelectedDish] = useState(null);
 
   const handlePrepareClick = (dish) => {
-    setSelectedDish(dish)
-    setPopupOpen(true)
-  }
+    setSelectedDish(dish);
+    setPopupOpen(true);
+  };
 
   return (
     <div className="pedido">
       <div className="header">
-        <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <Link to={'/mesaMesero'}>
             <Button
@@ -135,8 +134,8 @@ const VerPedidoMesero = () => {
       <div className="pedido-layout" ref={layoutRef}>
         <div className="cards-container">
           {dishes.map((dish) => {
-            const date = new Date(dish.fecha_ordenado)
-            const formattedTime = date.toLocaleTimeString('en-US')
+            const date = new Date(dish.fecha_ordenado);
+            const formattedTime = date.toLocaleTimeString('en-US');
 
             return (
               <Card
@@ -147,7 +146,7 @@ const VerPedidoMesero = () => {
                 onPrepareClick={() => handlePrepareClick(dish)}
                 buttonText="Ver Detalle"
               />
-            )
+            );
           })}
         </div>
       </div>
@@ -167,10 +166,10 @@ const VerPedidoMesero = () => {
         onRealizado={() => setPopupOpen(false)}
       ></Popup>
     </div>
-  )
-}
+  );
+};
 const VerPedidosMesero = ({ action }) => {
-  return <div>{action === 'verPedidoMesero' && <VerPedidoMesero />}</div>
-}
+  return <div>{action === 'verPedidoMesero' && <VerPedidoMesero />}</div>;
+};
 
-export default VerPedidosMesero
+export default VerPedidosMesero;

@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-import './meseroCuentaAbierta.css'
-import Input from '../components/input'
-import Button from '../components/button'
-import SelectInput from '../components/selectInput'
+import './meseroCuentaAbierta.css';
+import Input from '../components/input';
+import Button from '../components/button';
+import SelectInput from '../components/selectInput';
 
-const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
+const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
 
 const MesaCuentaAbierta = () => {
-  const [empleadoNombre, setEmpleadoNombre] = useState('')
-  const [rolEmpleado, setRolEmpleado] = useState('')
+  const [empleadoNombre, setEmpleadoNombre] = useState('');
+  const [rolEmpleado, setRolEmpleado] = useState('');
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRoleName = async () => {
@@ -52,25 +52,25 @@ const MesaCuentaAbierta = () => {
   }, []);
 
   // Reloj
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
+      setCurrentTime(new Date());
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   //Busqueda de mesa
   // Estado para la mesa seleccionada
-  const [selectedTable, setSelectedTable] = useState('')
+  const [selectedTable, setSelectedTable] = useState('');
 
-  const [occupiedTablesOptions, setOccupiedTablesOptions] = useState([])
+  const [occupiedTablesOptions, setOccupiedTablesOptions] = useState([]);
   const handleSelectedTable = (value) => {
     setSelectedTable(value);
   };
-  
+
   // Opciones de mesas disponibles para el select
   useEffect(() => {
     const fetchAvailableTables = async () => {
@@ -108,7 +108,7 @@ const MesaCuentaAbierta = () => {
   return (
     <div className="mesaMesero__abierta">
       <div className="header">
-        <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <p className="name__empleado">
             <span>Empleado:</span> {empleadoNombre}
@@ -152,11 +152,11 @@ const MesaCuentaAbierta = () => {
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const MesaMeseroCuentaAbierta = ({ action }) => {
-  return <div>{action === 'mesaMeseroCuentaAbierta' && <MesaCuentaAbierta />}</div>
-}
+  return <div>{action === 'mesaMeseroCuentaAbierta' && <MesaCuentaAbierta />}</div>;
+};
 
-export default MesaMeseroCuentaAbierta
+export default MesaMeseroCuentaAbierta;

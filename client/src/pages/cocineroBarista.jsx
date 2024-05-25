@@ -16,7 +16,7 @@ const Cocinero = () => {
 
   useEffect(() => {
     const fetchRoleName = async () => {
-      const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+      const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
       const username = localStorage.getItem('userLocal');
       const password = localStorage.getItem('passwordLocal');
 
@@ -52,7 +52,7 @@ const Cocinero = () => {
     fetchRoleName();
   }, []);
 
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+  const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -110,7 +110,7 @@ const Cocinero = () => {
   return (
     <div className="cocinero">
       <div className="header">
-        <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <p className="name__empleado">
             <span>Empleado:</span> {empleadoNombre}
@@ -134,7 +134,7 @@ const Cocinero = () => {
       </div>
       <div className="cocinero-layout" ref={layoutRef}>
         {rolEmpleado === 'Cocinero' ? (
-          <>
+          <div className="cards-container">
             {dishes.map((dish) => {
               const date = new Date(dish.fecha_ordenado);
               const formattedTime = date.toLocaleTimeString('en-US');
@@ -150,7 +150,7 @@ const Cocinero = () => {
                 />
               );
             })}
-          </>
+          </div>
         ) : (
           <div className="unauthorized">Usuario con rol no autorizado</div>
         )}
@@ -185,7 +185,7 @@ const Barista = () => {
 
   useEffect(() => {
     const fetchRoleName = async () => {
-      const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+      const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
       const username = localStorage.getItem('userLocal');
       const password = localStorage.getItem('passwordLocal');
 
@@ -221,7 +221,7 @@ const Barista = () => {
     fetchRoleName();
   }, []);
 
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+  const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -279,7 +279,7 @@ const Barista = () => {
   return (
     <div className="cocinero">
       <div className="header">
-        <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <p className="name__empleado">
             <span>Empleado:</span> {empleadoNombre}
@@ -303,7 +303,7 @@ const Barista = () => {
       </div>
       <div className="cocinero-layout" ref={layoutRef}>
         {rolEmpleado === 'Barista' ? (
-          <>
+          <div className="cards-container">
             {dishes.map((dish) => {
               const date = new Date(dish.fecha_ordenado);
               const formattedTime = date.toLocaleTimeString('en-US');
@@ -319,7 +319,7 @@ const Barista = () => {
                 />
               );
             })}
-          </>
+          </div>
         ) : (
           <div className="unauthorized">Usuario con rol no autorizado</div>
         )}

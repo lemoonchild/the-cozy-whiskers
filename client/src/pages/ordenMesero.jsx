@@ -1,34 +1,34 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
-import './ordenMesero.css'
-import Button from '../components/button'
+import './ordenMesero.css';
+import Button from '../components/button';
 
-import PopupEditable from '../components/popUpEditable'
+import PopupEditable from '../components/popUpEditable';
 
 const OrdenMesero = () => {
-  const numeroMesa = localStorage.getItem('numTable')
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
+  const numeroMesa = localStorage.getItem('numTable');
+  const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
 
   // Reloj
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
+      setCurrentTime(new Date());
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   // Estado para manejar la entrada de búsqueda
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('');
 
   // Estado para la lista filtrada de platos o bebidas
-  const [filteredDishes, setFilteredDishes] = useState([])
+  const [filteredDishes, setFilteredDishes] = useState([]);
 
   // Lista simulada de platos o bebidas
-  const [dishes, setDishes] = useState([])
+  const [dishes, setDishes] = useState([]);
 
   // Fetch dishes from the server
   useEffect(() => {
@@ -37,44 +37,44 @@ const OrdenMesero = () => {
         const response = await fetch(`${API_BASE_URL}/food-plates`);
 
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json()
+        const data = await response.json();
 
         if (data.status === 'success') {
-          setDishes(data.data)
+          setDishes(data.data);
         } else {
-          console.error('Failed to fetch dishes:', data.message)
+          console.error('Failed to fetch dishes:', data.message);
         }
       } catch (error) {
-        console.error('An error occurred:', error)
+        console.error('An error occurred:', error);
       }
-    }
+    };
 
-    fetchDishes()
-  }, [])
+    fetchDishes();
+  }, []);
 
   //Busqueda
   const handleSearch = (event) => {
-    const value = event.target.value
-    console.log('Valor de búsqueda:', value) // Debería mostrar la entrada del usuario
-    setSearchTerm(value)
+    const value = event.target.value;
+    console.log('Valor de búsqueda:', value); // Debería mostrar la entrada del usuario
+    setSearchTerm(value);
     if (value) {
       const filtered = dishes.filter((dish) =>
-        dish.nombre.toLowerCase().includes(value.toLowerCase())
-      )
-      console.log('Platos filtrados:', filtered) // Debería mostrar los platos o bebidas filtrados
-      setFilteredDishes(filtered)
+        dish.nombre.toLowerCase().includes(value.toLowerCase()),
+      );
+      console.log('Platos filtrados:', filtered); // Debería mostrar los platos o bebidas filtrados
+      setFilteredDishes(filtered);
     } else {
-      setFilteredDishes([])
+      setFilteredDishes([]);
     }
-  }
+  };
 
   // PopUp
-  const [isPopupEditableOpen, setIsPopupEditableOpen] = useState(false)
-  const [currentDishName, setCurrentDishName] = useState('')
-  const [currentDishID, setCurrentDishID] = useState('')
+  const [isPopupEditableOpen, setIsPopupEditableOpen] = useState(false);
+  const [currentDishName, setCurrentDishName] = useState('');
+  const [currentDishID, setCurrentDishID] = useState('');
 
   const openPopupEditable = (dishName, dishID) => {
     setCurrentDishName(dishName);
@@ -85,7 +85,7 @@ const OrdenMesero = () => {
   return (
     <div className="ordenMesero">
       <div className="header">
-        <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <Link to={'/informacionFactura'}>
             <Button
@@ -143,11 +143,11 @@ const OrdenMesero = () => {
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const OrdenMeseros = ({ action }) => {
-  return <div>{action === 'ordenMesero' && <OrdenMesero />}</div>
-}
+  return <div>{action === 'ordenMesero' && <OrdenMesero />}</div>;
+};
 
-export default OrdenMeseros
+export default OrdenMeseros;

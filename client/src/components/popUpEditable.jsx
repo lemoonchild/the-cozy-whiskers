@@ -6,7 +6,7 @@ const PopupEditable = ({ isOpen, closePopup, dishName, platoID }) => {
   const [size, setSize] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [note, setNote] = useState('');
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+  const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
 
   const sizeOptions = [
     { value: 'Pequeño', label: 'Pequeño' },

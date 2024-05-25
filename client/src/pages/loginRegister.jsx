@@ -5,7 +5,7 @@ import Input from '../components/input';
 import SelectInput from '../components/selectInput';
 import './loginRegister.css';
 
-const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
 
 const getCurrentDate = () => {
   const date = new Date();
@@ -13,7 +13,7 @@ const getCurrentDate = () => {
   const month = ('0' + (date.getMonth() + 1)).slice(-2);
   const day = ('0' + date.getDate()).slice(-2);
   return `${year}-${month}-${day}`;
-}
+};
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   const handleLogin = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     try {
       const response = await fetch(`${API_BASE_URL}/login`, {
         method: 'POST',
@@ -53,20 +53,20 @@ const Login = () => {
       if (data.status === 'success') {
         localStorage.setItem('userLocal', username);
         localStorage.setItem('passwordLocal', password);
-        
-        navigate('/mesaMesero')
+
+        navigate('/mesaMesero');
       } else {
         alert(data.message);
       }
     } catch (error) {
       console.error('An error occurred:', error);
     }
-  }
+  };
 
   return (
     <div className="login">
-      <img src="../resources/catlogo.png" alt="Title" className="cat__logo" />
-      <img src="../resources/coffee.png" alt="Background" className="login__background" />
+      <img src="/resources/catlogo.png" alt="Title" className="cat__logo" />
+      <img src="/resources/coffee.png" alt="Background" className="login__background" />
       <div className="login__box">
         <h1 className="title__login">Iniciar Sesión</h1>
         <p className="title__description">¡Hola de nuevo!</p>
@@ -92,13 +92,13 @@ const Login = () => {
             onValueChange={handlePassword}
           />
           <div className="login__button-container">
-              <Button type="submit" text="¡Entrar!"/>
+            <Button type="submit" text="¡Entrar!" />
           </div>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -119,12 +119,12 @@ const Register = () => {
     { value: 'Mesero', label: 'Mesero' },
     { value: 'Cocinero', label: 'Cocinero' },
     { value: 'Barista', label: 'Barista' },
-  ]
+  ];
 
   return (
     <div className="login">
-      <img src="../resources/catlogo.png" alt="Title" className="cat__logo" />
-      <img src="../resources/coffee.png" alt="Background" className="login__background" />
+      <img src="/resources/catlogo.png" alt="Title" className="cat__logo" />
+      <img src="/resources/coffee.png" alt="Background" className="login__background" />
       <div className="login__box">
         <h1 className="title__login">Registrase</h1>
         <p className="title__description">¡Un gusto!</p>
@@ -160,47 +160,50 @@ const Register = () => {
           />
           <div className="login__button-container">
             <Link to={'/login'}>
-              <Button text="¡Bienvenid@!" onClick={async () => {
-                try {
-                  const response = await fetch(`${API_BASE_URL}/register`, {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      name: username,
-                      role: role,
-                      startDate: getCurrentDate(),
-                      username: username,
-                      password: password
-                    }),
-                  });
+              <Button
+                text="¡Bienvenid@!"
+                onClick={async () => {
+                  try {
+                    const response = await fetch(`${API_BASE_URL}/register`, {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        name: username,
+                        role: role,
+                        startDate: getCurrentDate(),
+                        username: username,
+                        password: password,
+                      }),
+                    });
 
-                  if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    if (!response.ok) {
+                      throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    console.log(data);
+                  } catch (error) {
+                    console.error('An error occurred:', error);
                   }
-
-                  const data = await response.json();
-                  console.log(data);
-                } catch (error) {
-                  console.error('An error occurred:', error);
-                }
-              }} />
+                }}
+              />
             </Link>
           </div>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const LoginRegistro = ({ action }) => {
   return (
-    <div>
+    <>
       {action === 'login' && <Login />}
       {action === 'register' && <Register />}
-    </div>
-  )
-}
+    </>
+  );
+};
 
-export default LoginRegistro
+export default LoginRegistro;
