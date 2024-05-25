@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import './infoReportes.css'
+import './infoReportes.css';
 
 const VerReportes = () => {
   // Información sobre rango de fechas de reporte
-  const fechaInicio = localStorage.getItem('fechaInicio')
-  const fechaFin = localStorage.getItem('fechaFin')
-  const APIfetch = localStorage.getItem('reportAPI')
+  const fechaInicio = localStorage.getItem('fechaInicio');
+  const fechaFin = localStorage.getItem('fechaFin');
+  const APIfetch = localStorage.getItem('reportAPI');
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -20,16 +20,19 @@ const VerReportes = () => {
       setError('');
       const url = `${API_BASE_URL}${APIfetch}`;
       const methodType = url.includes('report-server-efficiency-last-6-months') ? 'GET' : 'POST';
-      const body = methodType === 'POST' ? JSON.stringify({
-        fecha_inicio: fechaInicio,
-        fecha_fin: fechaFin
-      }) : null;
+      const body =
+        methodType === 'POST'
+          ? JSON.stringify({
+              fecha_inicio: fechaInicio,
+              fecha_fin: fechaFin,
+            })
+          : null;
 
       try {
         const response = await fetch(url, {
           method: methodType,
           headers: { 'Content-Type': 'application/json' },
-          body: body
+          body: body,
         });
 
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -38,9 +41,9 @@ const VerReportes = () => {
         if (result.data) {
           // Format data if specific API endpoint
           if (APIfetch.includes('report-average-dining-time')) {
-            const formattedData = result.data.map(item => ({
+            const formattedData = result.data.map((item) => ({
               ...item,
-              tiempo_promedio: formatTime(item.tiempo_promedio)
+              tiempo_promedio: formatTime(item.tiempo_promedio),
             }));
             setData(formattedData);
           } else {
@@ -94,7 +97,7 @@ const VerReportes = () => {
           <button className="close-button">X</button>
         </Link>
       </div>
-      <img src="../resources/mainlogo.png" alt="Logo" className="main__logo__reporte" />
+      <img src="../../public/resources/mainlogo.png" alt="Logo" className="main__logo__reporte" />
       <div className="info__empresa__reporte">
         <p>The Cozy Whiskers S.A</p>
         <p>Nit: 456778-2</p>
@@ -124,7 +127,7 @@ const VerReportes = () => {
 };
 
 const VerReporteAdmin = ({ action }) => {
-  return <div>{action === 'verReporte' && <VerReportes />}</div>
-}
+  return <div>{action === 'verReporte' && <VerReportes />}</div>;
+};
 
-export default VerReporteAdmin
+export default VerReporteAdmin;

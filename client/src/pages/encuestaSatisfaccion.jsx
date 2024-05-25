@@ -1,25 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-import './encuestaSatisfaccion.css'
-import Input from '../components/input'
-import Button from '../components/button'
-import Slider from '../components/slider'
+import './encuestaSatisfaccion.css';
+import Input from '../components/input';
+import Button from '../components/button';
+import Slider from '../components/slider';
 
 const EncuestaSatisfaccion = () => {
-
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
+  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
   //Colocar el nombre de empleado y rol según el usuario
-  const [empleadoNombre, setEmpleadoNombre] = useState('')
-  const [rolEmpleado, setRolEmpleado] = useState('')
-  const [empleadoIDSat, setEmpleadoIDSat] = useState('')
-  const numeroCuenta = localStorage.getItem('numTable')
-  const NITQueja = localStorage.getItem('NIT')
-  const queja = localStorage.getItem('queja')
-  const clasificacion = localStorage.getItem('clasificacion')
-  const selectedEmpleadoId = localStorage.getItem('empleado_id')
-  const selectedPlatoBebidaId = localStorage.getItem('platobebida_id')
-
+  const [empleadoNombre, setEmpleadoNombre] = useState('');
+  const [rolEmpleado, setRolEmpleado] = useState('');
+  const [empleadoIDSat, setEmpleadoIDSat] = useState('');
+  const numeroCuenta = localStorage.getItem('numTable');
+  const NITQueja = localStorage.getItem('NIT');
+  const queja = localStorage.getItem('queja');
+  const clasificacion = localStorage.getItem('clasificacion');
+  const selectedEmpleadoId = localStorage.getItem('empleado_id');
+  const selectedPlatoBebidaId = localStorage.getItem('platobebida_id');
 
   useEffect(() => {
     const fetchRoleName = async () => {
@@ -60,20 +58,20 @@ const EncuestaSatisfaccion = () => {
   }, []);
 
   //Sliders de preguntas
-  const [sliderValue1, setSliderValue1] = useState(3) //default de 3
-  const [sliderValue2, setSliderValue2] = useState(3)
+  const [sliderValue1, setSliderValue1] = useState(3); //default de 3
+  const [sliderValue2, setSliderValue2] = useState(3);
 
   // Handlers para cada slider
   const handleSliderChange1 = (e) => {
-    setSliderValue1(e.target.value)
-  }
+    setSliderValue1(e.target.value);
+  };
   const handleSliderChange2 = (e) => {
-    setSliderValue2(e.target.value)
-  }
+    setSliderValue2(e.target.value);
+  };
 
   //Envio de la encuesta con boton
   const handleSubmit = async () => {
-    console.log(empleadoIDSat)
+    console.log(empleadoIDSat);
     try {
       const response = await fetch(`${API_BASE_URL}/submit-queja-encuesta`, {
         method: 'POST',
@@ -106,23 +104,23 @@ const EncuestaSatisfaccion = () => {
     } catch (error) {
       console.error('An error occurred:', error);
     }
-  }
+  };
 
   // Reloj
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
+      setCurrentTime(new Date());
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="informacionFactura">
       <div className="header">
-        <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="../../public/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <p className="name__empleado">
             <span>Empleado:</span> {empleadoNombre}
@@ -186,11 +184,11 @@ const EncuestaSatisfaccion = () => {
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const EncuestaSatisfaccionMesero = ({ action }) => {
-  return <div>{action === 'encuestaSatisfaccion' && <EncuestaSatisfaccion />}</div>
-}
+  return <div>{action === 'encuestaSatisfaccion' && <EncuestaSatisfaccion />}</div>;
+};
 
-export default EncuestaSatisfaccionMesero
+export default EncuestaSatisfaccionMesero;

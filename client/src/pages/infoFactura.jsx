@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
-import './infoFactura.css'
-import Input from '../components/input'
-import Button from '../components/button'
+import './infoFactura.css';
+import Input from '../components/input';
+import Button from '../components/button';
 
-import SelectInput from '../components/selectInput'
+import SelectInput from '../components/selectInput';
 
 const InformacionFactura = () => {
   //Colocar el nombre de empleado y rol según el usuario
-  const [empleadoNombre, setEmpleadoNombre] = useState('')
-  const [rolEmpleado, setRolEmpleado] = useState('')
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
+  const [empleadoNombre, setEmpleadoNombre] = useState('');
+  const [rolEmpleado, setRolEmpleado] = useState('');
+  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
 
-  const MesaId = localStorage.getItem('numTable')
+  const MesaId = localStorage.getItem('numTable');
 
   useEffect(() => {
     const fetchRoleName = async () => {
@@ -53,44 +53,41 @@ const InformacionFactura = () => {
   }, []);
 
   //checkbox
-  const [isDividedBill, setIsDividedBill] = useState(false) // Estado para el checkbox
-  const [NITValue, setNITValue] = useState('') // Estado para el NIT
-  const [nombreValue, setNombreValue] = useState('') // Estado para el nombre
-  const [direccionValue, setDireccionValue] = useState('') // Estado para la dirección 
-  const [selectedPaymentOption, setSelectedPaymentOption] = useState('efectivo')
+  const [isDividedBill, setIsDividedBill] = useState(false); // Estado para el checkbox
+  const [NITValue, setNITValue] = useState(''); // Estado para el NIT
+  const [nombreValue, setNombreValue] = useState(''); // Estado para el nombre
+  const [direccionValue, setDireccionValue] = useState(''); // Estado para la dirección
+  const [selectedPaymentOption, setSelectedPaymentOption] = useState('efectivo');
 
   const handlePaymentOptionChange = (value) => {
-    setSelectedPaymentOption(value)
-  }
+    setSelectedPaymentOption(value);
+  };
 
-  const checkEfectivo = selectedPaymentOption === 'efectivo' || selectedPaymentOption === 'ambos'
-  const checkTarjeta = selectedPaymentOption === 'tarjeta' || selectedPaymentOption === 'ambos'
-
+  const checkEfectivo = selectedPaymentOption === 'efectivo' || selectedPaymentOption === 'ambos';
+  const checkTarjeta = selectedPaymentOption === 'tarjeta' || selectedPaymentOption === 'ambos';
 
   const handleCheckboxChange = (e) => {
-    setIsDividedBill(e.target.checked) // Actualiza el estado cuando el checkbox cambia
-  }
-
-
+    setIsDividedBill(e.target.checked); // Actualiza el estado cuando el checkbox cambia
+  };
 
   const handleNITChange = (value) => {
-    setNITValue(value)
-  }
+    setNITValue(value);
+  };
 
   const handleNombreChange = (value) => {
-    setNombreValue(value)
-  }
+    setNombreValue(value);
+  };
 
   const handleDireccionChange = (value) => {
-    setDireccionValue(value)
-  }
+    setDireccionValue(value);
+  };
 
   //Opciones de pago
   const payOptions = [
     { value: 'efectivo', label: 'Efectivo' },
     { value: 'tarjeta', label: 'Tarjeta' },
     { value: 'ambos', label: 'Ambos' },
-  ]
+  ];
 
   const handlePrintFacturaClick = async () => {
     try {
@@ -107,40 +104,40 @@ const InformacionFactura = () => {
           efectivo_arg: checkEfectivo,
           tarjeta_arg: checkTarjeta,
         }),
-      })
-  
+      });
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
-      const data = await response.json()
-  
+
+      const data = await response.json();
+
       if (data.status === 'success') {
-        console.log('Factura printed successfully')
-        localStorage.setItem('dividedBill', isDividedBill)
+        console.log('Factura printed successfully');
+        localStorage.setItem('dividedBill', isDividedBill);
       } else {
-        alert(data.message)
+        alert(data.message);
       }
     } catch (error) {
-      console.error('An error occurred:', error)
+      console.error('An error occurred:', error);
     }
-  }
+  };
 
   // Reloj
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
+      setCurrentTime(new Date());
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="informacionFactura">
       <div className="header">
-        <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="../../public/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <p className="name__empleado">
             <span>Empleado:</span> {empleadoNombre}
@@ -217,7 +214,7 @@ const InformacionFactura = () => {
         </div>
         <div className="factura__button-container">
           <Link to={'/verfactura'}>
-            <Button text="Imprimir factura" onClick={handlePrintFacturaClick}/>
+            <Button text="Imprimir factura" onClick={handlePrintFacturaClick} />
           </Link>
         </div>
       </form>
@@ -226,11 +223,11 @@ const InformacionFactura = () => {
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const InformaciondeFactura = ({ action }) => {
-  return <div>{action === 'informacionFactura' && <InformacionFactura />}</div>
-}
+  return <div>{action === 'informacionFactura' && <InformacionFactura />}</div>;
+};
 
-export default InformaciondeFactura
+export default InformaciondeFactura;

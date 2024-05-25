@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-import './mesaMesero.css'
-import Input from '../components/input'
-import Button from '../components/button'
-import SelectInput from '../components/selectInput'
+import './mesaMesero.css';
+import Input from '../components/input';
+import Button from '../components/button';
+import SelectInput from '../components/selectInput';
 
-const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
+const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
 
 const MeseroMesa = () => {
-  const navigate = useNavigate()
-  const [empleadoNombre, setEmpleadoNombre] = useState('')
-  const [rolEmpleado, setRolEmpleado] = useState('')
+  const navigate = useNavigate();
+  const [empleadoNombre, setEmpleadoNombre] = useState('');
+  const [rolEmpleado, setRolEmpleado] = useState('');
 
   useEffect(() => {
     const fetchRoleName = async () => {
@@ -50,22 +50,22 @@ const MeseroMesa = () => {
     fetchRoleName();
   }, []);
 
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
+      setCurrentTime(new Date());
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
-  const [selectedTable, setSelectedTable] = useState('')
+  const [selectedTable, setSelectedTable] = useState('');
   const handleSelectedTable = (value) => {
     setSelectedTable(value);
   };
   const [availableTablesOptions, setAvailableTablesOptions] = useState([]);
-  const [numPeople, setNumPeople] = useState('')
+  const [numPeople, setNumPeople] = useState('');
 
   const handlePeople = (value) => {
     setNumPeople(value);
@@ -107,7 +107,7 @@ const MeseroMesa = () => {
   return (
     <div className="mesaMesero">
       <div className="header">
-        <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="../../public/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <p className="name__empleado">
             <span>Empleado:</span> {empleadoNombre}
@@ -149,18 +149,21 @@ const MeseroMesa = () => {
       <div className="buttons_mesa">
         <Button
           text="Abrir cuenta" //Opción de abrir cuenta
-          onClick={ async() => {
+          onClick={async () => {
             try {
-              const response = await fetch('https://the-cozy-whiskers-api-vercel.vercel.app/insert-new-cuenta', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
+              const response = await fetch(
+                'https://the-cozy-whiskers-api-vercel.vercel.app/insert-new-cuenta',
+                {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    mesa_id_arg: selectedTable,
+                    personas_arg: numPeople,
+                  }),
                 },
-                body: JSON.stringify({
-                  mesa_id_arg: selectedTable,
-                  personas_arg: numPeople,
-                }),
-              });
+              );
 
               if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -190,11 +193,11 @@ const MeseroMesa = () => {
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const MesaMesero = ({ action }) => {
-  return <div>{action === 'mesaMesero' && <MeseroMesa />}</div>
-}
+  return <div>{action === 'mesaMesero' && <MeseroMesa />}</div>;
+};
 
-export default MesaMesero
+export default MesaMesero;

@@ -110,7 +110,7 @@ const Cocinero = () => {
   return (
     <div className="cocinero">
       <div className="header">
-        <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="../../public/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <p className="name__empleado">
             <span>Empleado:</span> {empleadoNombre}
@@ -279,7 +279,7 @@ const Barista = () => {
   return (
     <div className="cocinero">
       <div className="header">
-        <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="../../public/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <p className="name__empleado">
             <span>Empleado:</span> {empleadoNombre}

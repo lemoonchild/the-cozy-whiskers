@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
-import './reportes.css'
-import Button from '../components/button'
-import PopupFecha from '../components/popUpfecha'
+import './reportes.css';
+import Button from '../components/button';
+import PopupFecha from '../components/popUpfecha';
 
 const ReportesAdmin = () => {
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
-  const [empleadoNombre, setEmpleadoNombre] = useState('')
-  const [rolEmpleado, setRolEmpleado] = useState('')
+  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
+  const [empleadoNombre, setEmpleadoNombre] = useState('');
+  const [rolEmpleado, setRolEmpleado] = useState('');
 
   useEffect(() => {
     const fetchRoleName = async () => {
@@ -47,35 +47,35 @@ const ReportesAdmin = () => {
     fetchRoleName();
   }, []);
   // Reloj
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
+      setCurrentTime(new Date());
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   //PopUp de fecha
-  const [isPopupOpen, setIsPopupOpen] = useState(false)
-  const [fechaInicio, setFechaInicio] = useState('')
-  const [fechaFin, setFechaFin] = useState('')
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [fechaInicio, setFechaInicio] = useState('');
+  const [fechaFin, setFechaFin] = useState('');
 
   const handleButtonClick = (fetch) => {
-    localStorage.setItem('reportAPI', fetch)
-    setIsPopupOpen(true) // Abre el pop-up
-  }
+    localStorage.setItem('reportAPI', fetch);
+    setIsPopupOpen(true); // Abre el pop-up
+  };
 
   const handleDateSubmit = () => {
-    localStorage.setItem('fechaInicio', fechaInicio)
-    localStorage.setItem('fechaFin', fechaFin)
-  }
+    localStorage.setItem('fechaInicio', fechaInicio);
+    localStorage.setItem('fechaFin', fechaFin);
+  };
 
   return (
     <div className="reportes">
       <div className="header">
-        <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="../../public/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <p className="name__empleado">
             <span>Empleado:</span> {empleadoNombre}
@@ -90,7 +90,7 @@ const ReportesAdmin = () => {
         <p className="current-time">{currentTime.toLocaleTimeString()}</p>
       </div>
 
-      <div className="reportes__button-container" >
+      <div className="reportes__button-container">
         <Button
           text="Platos más pedidos"
           className="reportes__button"
@@ -126,7 +126,9 @@ const ReportesAdmin = () => {
           <Button //ESTE ES EL DE LOS 6 MESES
             text="Reporte de eficiencia de meseros"
             className="reportes__button"
-            onClick={() => localStorage.setItem('reportAPI', 'report-server-efficiency-last-6-months')}
+            onClick={() =>
+              localStorage.setItem('reportAPI', 'report-server-efficiency-last-6-months')
+            }
           />
         </Link>
       </div>
@@ -147,7 +149,11 @@ const ReportesAdmin = () => {
             <input type="date" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} />
           </div>
           <Link to="/verReporte">
-            <Button text="Generar Reporte" className="popup-button-fecha" onClick={handleDateSubmit} />
+            <Button
+              text="Generar Reporte"
+              className="popup-button-fecha"
+              onClick={handleDateSubmit}
+            />
           </Link>
         </div>
       </PopupFecha>
@@ -156,11 +162,11 @@ const ReportesAdmin = () => {
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Reportes = ({ action }) => {
-  return <div>{action === 'reportes' && <ReportesAdmin />}</div>
-}
+  return <div>{action === 'reportes' && <ReportesAdmin />}</div>;
+};
 
-export default Reportes
+export default Reportes;

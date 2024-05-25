@@ -1,44 +1,43 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-import './queja.css'
-import Button from '../components/button'
-import Input from '../components/input'
-import Slider from '../components/slider'
-import RadioButton from '../components/radioButton'
+import './queja.css';
+import Button from '../components/button';
+import Input from '../components/input';
+import Slider from '../components/slider';
+import RadioButton from '../components/radioButton';
 
 const QuejaProducto = () => {
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
+  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
   //Colocar el nombre de empleado y rol según el usuario
-  const [empleadoNombre, setEmpleadoNombre] = useState('')
-  const [rolEmpleado, setRolEmpleado] = useState('')
-  const [NITValue, setNITValue] = useState('') // Estado para el NIT
-  const [queja, setQueja] = useState('') // Estado para el NIT
-  const [sliderValue, setSliderValue] = useState(3)
+  const [empleadoNombre, setEmpleadoNombre] = useState('');
+  const [rolEmpleado, setRolEmpleado] = useState('');
+  const [NITValue, setNITValue] = useState(''); // Estado para el NIT
+  const [queja, setQueja] = useState(''); // Estado para el NIT
+  const [sliderValue, setSliderValue] = useState(3);
   const [selectedEmpleadoId, setSelectedEmpleadoId] = useState(0);
   const [selectedPlatoBebidaId, setSelectedPlatoBebidaId] = useState(0);
 
-
   const handleSubmitQueja = () => {
-    localStorage.setItem('NIT', NITValue)
-    localStorage.setItem('queja', queja)
-    localStorage.setItem('clasificacion', sliderValue)
-    localStorage.setItem('empleado_id', selectedEmpleadoId)
-    localStorage.setItem('platobebida_id', selectedPlatoBebidaId)
-  }
+    localStorage.setItem('NIT', NITValue);
+    localStorage.setItem('queja', queja);
+    localStorage.setItem('clasificacion', sliderValue);
+    localStorage.setItem('empleado_id', selectedEmpleadoId);
+    localStorage.setItem('platobebida_id', selectedPlatoBebidaId);
+  };
 
   // Handlers para cada slider
   const handleSliderChange = (e) => {
-    setSliderValue(e.target.value)
-  }
+    setSliderValue(e.target.value);
+  };
 
   const handleNITChange = (value) => {
-    setNITValue(value)
-  }
+    setNITValue(value);
+  };
 
   const handleQuejaChange = (value) => {
-    setQueja(value)
-  }
+    setQueja(value);
+  };
 
   useEffect(() => {
     const fetchRoleName = async () => {
@@ -77,29 +76,29 @@ const QuejaProducto = () => {
     fetchRoleName();
   }, []);
   //Numero de mesa
-  const numeroCuenta = localStorage.getItem('numTable')
+  const numeroCuenta = localStorage.getItem('numTable');
 
   //Slider
 
   // Reloj
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
+      setCurrentTime(new Date());
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   //RadioButton
   // Estado para los radio buttons
-  const [selectedOption, setSelectedOption] = useState('')
+  const [selectedOption, setSelectedOption] = useState('');
 
   // Handler para los cambios en los radio buttons
   const handleRadioChange = (e) => {
-    setSelectedOption(e.target.value)
-  }
+    setSelectedOption(e.target.value);
+  };
 
   //Elementos para la busqueda
   const [employees, setEmployees] = useState([]);
@@ -153,8 +152,8 @@ const QuejaProducto = () => {
   }, [selectedOption]);
 
   // Estado para manejar la entrada de búsqueda y los resultados filtrados
-  const [searchTerm, setSearchTerm] = useState('')
-  const [filteredResults, setFilteredResults] = useState([])
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredResults, setFilteredResults] = useState([]);
 
   // Función para manejar el cambio en la barra de búsqueda
   const handleSearchChange = (event) => {
@@ -164,11 +163,13 @@ const QuejaProducto = () => {
     if (value) {
       let filtered = [];
       if (selectedOption === 'Empleado') {
-        filtered = employees.filter(item => item.nombre.toLowerCase().includes(value.toLowerCase()));
+        filtered = employees.filter((item) =>
+          item.nombre.toLowerCase().includes(value.toLowerCase()),
+        );
       } else if (selectedOption === 'Plato') {
-        filtered = food.filter(item => item.nombre.toLowerCase().includes(value.toLowerCase()));
+        filtered = food.filter((item) => item.nombre.toLowerCase().includes(value.toLowerCase()));
       } else if (selectedOption === 'Bebida') {
-        filtered = drinks.filter(item => item.nombre.toLowerCase().includes(value.toLowerCase()));
+        filtered = drinks.filter((item) => item.nombre.toLowerCase().includes(value.toLowerCase()));
       }
       setFilteredResults(filtered);
     } else {
@@ -178,8 +179,8 @@ const QuejaProducto = () => {
 
   // Función para seleccionar el item y cerrar los resultados de búsqueda
   const handleSelectItem = (item) => {
-    setSearchTerm(item.nombre) // Esto pondrá el nombre del plato o bebida en el search bar.
-    setFilteredResults([]) // Esto limpiará los resultados de búsqueda, cerrando la lista.
+    setSearchTerm(item.nombre); // Esto pondrá el nombre del plato o bebida en el search bar.
+    setFilteredResults([]); // Esto limpiará los resultados de búsqueda, cerrando la lista.
 
     if (selectedOption === 'Empleado') {
       setSelectedEmpleadoId(item.empleado_id);
@@ -188,17 +189,14 @@ const QuejaProducto = () => {
       setSelectedPlatoBebidaId(item.platobebida_id);
       setSelectedEmpleadoId(0);
     }
-
-  }
+  };
 
   // Función para renderizar la barra de búsqueda según el RadioButton seleccionado
   const renderSearchBar = () => {
     if (selectedOption) {
       return (
         <div className="search__element">
-          <label className="search-label-queja">
-            Buscar {selectedOption.toLowerCase()}:
-          </label>
+          <label className="search-label-queja">Buscar {selectedOption.toLowerCase()}:</label>
           <input
             type="text"
             placeholder={`Buscar ${selectedOption.toLowerCase()}...`}
@@ -227,7 +225,7 @@ const QuejaProducto = () => {
   return (
     <div className="quejaProducto">
       <div className="header">
-        <img src="../resources/mainlogo.png" alt="Logo" className="main__logo" />
+        <img src="../../public/resources/mainlogo.png" alt="Logo" className="main__logo" />
         <div className="employee-info">
           <p className="name__empleado">
             <span>Empleado:</span> {empleadoNombre}
@@ -307,11 +305,11 @@ const QuejaProducto = () => {
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Queja = ({ action }) => {
-  return <div>{action === 'queja' && <QuejaProducto />}</div>
-}
+  return <div>{action === 'queja' && <QuejaProducto />}</div>;
+};
 
-export default Queja
+export default Queja;
