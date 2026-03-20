@@ -13,12 +13,14 @@ import Reportes from './pages/reportes'
 import VerFacturaUsuario from './pages/factura'
 import VerReporteAdmin from './pages/infoReportes'
 import MeseroMesaCuentaAbierta from './pages/meseroCuentaAbierta'
+import MenuPublic from './pages/menuPublic'
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/menu" element={<MenuPublic />} />
         <Route path="/login" element={<LoginRegistro action="login" />} />
         <Route path="/register" element={<LoginRegistro action="register" />} />
 

@@ -72,36 +72,34 @@ const MesaCuentaAbierta = () => {
   };
   
   // Opciones de mesas disponibles para el select
-  useEffect(() => {
-    const fetchAvailableTables = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/get-occupied-mesas`);
+  const fetchOccupiedTables = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/get-occupied-mesas`);
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        if (data.status === 'success') {
-          const tablesOptions = data.data.map((table) => ({
-            label: `Mesa ${table.mesa_id}`,
-            value: table.mesa_id,
-          }));
-
-          setOccupiedTablesOptions(tablesOptions);
-        } else {
-          alert(data.message);
-        }
-      } catch (error) {
-        console.error('An error occurred:', error);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
 
-    fetchAvailableTables();
+      const data = await response.json();
 
-    const interval = setInterval(fetchAvailableTables, 5000);
+      if (data.status === 'success') {
+        const tablesOptions = data.data.map((table) => ({
+          label: `Mesa ${table.mesa_id}`,
+          value: table.mesa_id,
+        }));
 
+        setOccupiedTablesOptions(tablesOptions);
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOccupiedTables();
+    const interval = setInterval(fetchOccupiedTables, 5000);
     return () => clearInterval(interval);
   }, []);
 

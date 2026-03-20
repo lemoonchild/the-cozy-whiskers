@@ -54,22 +54,22 @@ const Cocinero = () => {
 
   const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      const response = await fetch(`${API_BASE_URL}/fetch-all-orders`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tipo_comida: 'Plato' }),
-      });
-      const data = await response.json();
-      if (data.data) {
-        const filteredDishes = data.data.filter(
-          (dish) => !completedDishes.includes(dish.detalle_id),
-        );
-        setDishes(filteredDishes);
-      }
-    };
+  const fetchOrders = async () => {
+    const response = await fetch(`${API_BASE_URL}/fetch-all-orders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tipo_comida: 'Plato' }),
+    });
+    const data = await response.json();
+    if (data.data) {
+      const filteredDishes = data.data.filter(
+        (dish) => !completedDishes.includes(dish.detalle_id),
+      );
+      setDishes(filteredDishes);
+    }
+  };
 
+  useEffect(() => {
     fetchOrders();
     const intervalId = setInterval(fetchOrders, 3000);
     return () => clearInterval(intervalId);
@@ -223,22 +223,22 @@ const Barista = () => {
 
   const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app';
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      const response = await fetch(`${API_BASE_URL}/fetch-all-orders`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tipo_comida: 'Bebida' }),
-      });
-      const data = await response.json();
-      if (data.data) {
-        const filteredDishes = data.data.filter(
-          (dish) => !completedDishes.includes(dish.detalle_id),
-        );
-        setDishes(filteredDishes);
-      }
-    };
+  const fetchOrders = async () => {
+    const response = await fetch(`${API_BASE_URL}/fetch-all-orders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tipo_comida: 'Bebida' }),
+    });
+    const data = await response.json();
+    if (data.data) {
+      const filteredDishes = data.data.filter(
+        (dish) => !completedDishes.includes(dish.detalle_id),
+      );
+      setDishes(filteredDishes);
+    }
+  };
 
+  useEffect(() => {
     fetchOrders();
     const intervalId = setInterval(fetchOrders, 3000);
     return () => clearInterval(intervalId);

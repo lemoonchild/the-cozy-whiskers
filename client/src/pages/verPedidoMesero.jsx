@@ -70,16 +70,13 @@ const VerPedidoMesero = () => {
     fetchDishes() // Fetch dishes when the component mounts
   }, [])
 
-  //Actualizar la pagina cada 3 segundos
   useEffect(() => {
     const intervalId = setInterval(() => {
+      fetchDishes()
+    }, 5000)
 
-      fetchDishes() // Fetch dishes every 3 seconds
-    }, 5000) // Se ejecuta cada 3 segundos
-
-    // Función de limpieza que React ejecutará cuando el componente se desmonte
     return () => clearInterval(intervalId)
-  }, []) // Las dependencias vacías indican que solo se ejecuta al montar y desmontar
+  }, [])
 
   // Reloj
   const [currentTime, setCurrentTime] = useState(new Date())
