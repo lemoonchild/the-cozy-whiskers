@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import './homePage.css'
+import { Link } from 'react-router-dom';
+import Button from '../components/button';
+import './homePage.css';
+import React, { useEffect, useState } from 'react';
 
 const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
 
@@ -44,7 +45,7 @@ const HomePage = () => {
     <div className="home-landing">
       <header className="landing-header">
         <div className="brand">
-          <img src="../resources/mainlogo.png" alt="The Cozy Whiskers" />
+          <img src="/resources/mainlogo.png" alt="The Cozy Whiskers" />
           <span>The Cozy Whiskers</span>
         </div>
         <nav className="landing-nav">
@@ -103,7 +104,7 @@ const HomePage = () => {
         <p>The Cozy Whiskers S.A. - 6a. Avenida 8-28 zona 9</p>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

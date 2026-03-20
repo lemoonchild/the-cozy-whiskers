@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import Button from '../components/button'
-import './factura.css'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Button from '../components/button';
+import './factura.css';
 
 const VerFactura = () => {
-  const API_BASE_URL = 'https://the-cozy-whiskers-api-vercel.vercel.app'
+  const API_BASE_URL = 'https://api-the-cozy-whisker.vercel.app';
   //Información que viene de la pantalla de factura
-  const [nombreUsuario, setNombreUsuario] = useState("");
-  const [totalData, setTotalData] = useState("");
-  const [nitUsuario, setNitUsuario] = useState("");
-  const [direccion, setDireccion] = useState("");
-  const [noFactura, setNoFactura] = useState("");
+  const [nombreUsuario, setNombreUsuario] = useState('');
+  const [totalData, setTotalData] = useState('');
+  const [nitUsuario, setNitUsuario] = useState('');
+  const [direccion, setDireccion] = useState('');
+  const [noFactura, setNoFactura] = useState('');
   const [fechaEmision, setFechaEmision] = useState(new Date().toLocaleDateString());
-  const [tipoPago, setTipoPago] = useState("");
+  const [tipoPago, setTipoPago] = useState('');
   const [numeroDePersonas, setNumeroDePersonas] = useState(3);
-  const MesaId = localStorage.getItem('numTable')
-  const dividedBill = localStorage.getItem('dividedBill')
+  const MesaId = localStorage.getItem('numTable');
+  const dividedBill = localStorage.getItem('dividedBill');
 
   const [dividedTotal, setDividedTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -74,7 +74,6 @@ const VerFactura = () => {
 
         // Update the state with the fetched total
         setTotalData(totalData.data[0].total_final);
-
       } catch (error) {
         console.error('Error:', error);
       }
@@ -137,7 +136,7 @@ const VerFactura = () => {
         <span>{nombre}</span>
         <span>${precio}</span>
       </div>
-    )
+    );
   }
   return (
     <div className="ver__factura">
@@ -150,7 +149,7 @@ const VerFactura = () => {
           <button className="close-button">X</button>
         </Link>
       </div>
-      <img src="../resources/mainlogo.png" alt="Logo" className="main__logo__factura" />
+      <img src="/resources/mainlogo.png" alt="Logo" className="main__logo__factura" />
       <div className="info__empresa">
         <p>The Cozy Whiskers S.A</p>
         <p>Nit: 456778-2</p>
@@ -219,11 +218,11 @@ const VerFactura = () => {
         <p className="page__message">Your Second Home, with a Feline Twist</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const VerFacturaUsuario = ({ action }) => {
-  return <div>{action === 'verfactura' && <VerFactura />}</div>
-}
+  return <div>{action === 'verfactura' && <VerFactura />}</div>;
+};
 
-export default VerFacturaUsuario
+export default VerFacturaUsuario;
