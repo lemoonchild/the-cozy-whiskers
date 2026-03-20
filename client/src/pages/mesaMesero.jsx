@@ -71,36 +71,34 @@ const MeseroMesa = () => {
     setNumPeople(value);
   };
 
-  useEffect(() => {
-    const fetchAvailableTables = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/get-available-mesas`);
+  const fetchAvailableTables = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/get-available-mesas`);
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        if (data.status === 'success') {
-          const tablesOptions = data.data.map((table) => ({
-            label: `Mesa ${table.mesa_id}`,
-            value: table.mesa_id,
-          }));
-
-          setAvailableTablesOptions(tablesOptions);
-        } else {
-          alert(data.message);
-        }
-      } catch (error) {
-        console.error('An error occurred:', error);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
 
+      const data = await response.json();
+
+      if (data.status === 'success') {
+        const tablesOptions = data.data.map((table) => ({
+          label: `Mesa ${table.mesa_id}`,
+          value: table.mesa_id,
+        }));
+
+        setAvailableTablesOptions(tablesOptions);
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+
+  useEffect(() => {
     fetchAvailableTables();
-
     const interval = setInterval(fetchAvailableTables, 5000);
-
     return () => clearInterval(interval);
   }, []);
 
